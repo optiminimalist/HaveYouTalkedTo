@@ -15,29 +15,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactsListCell" id="mvW-1q-57n" customClass="ContactsListCell" customModule="HaveYouTalkedTo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactsListCell" rowHeight="65" id="mvW-1q-57n" customClass="ContactsListCell" customModule="HaveYouTalkedTo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mvW-1q-57n" id="u9H-dN-Ig9">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JmB-0d-2DI">
-                                            <rect key="frame" x="8" y="11" width="42" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lastName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JmB-0d-2DI">
+                                            <rect key="frame" x="20" y="11" width="78" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="firstName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EyP-97-lt3">
+                                            <rect key="frame" x="106" y="11" width="75" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lastContacted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nKE-h3-DMo">
+                                            <rect key="frame" x="20" y="37" width="91" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="JmB-0d-2DI" firstAttribute="leading" secondItem="u9H-dN-Ig9" secondAttribute="leading" constant="8" id="CIy-nl-aPs"/>
-                                        <constraint firstItem="JmB-0d-2DI" firstAttribute="top" secondItem="u9H-dN-Ig9" secondAttribute="topMargin" id="Dvg-MX-5gb"/>
-                                        <constraint firstItem="JmB-0d-2DI" firstAttribute="centerY" secondItem="u9H-dN-Ig9" secondAttribute="centerY" id="HBx-3B-TIS"/>
-                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JmB-0d-2DI" secondAttribute="trailing" constant="20" symbolic="YES" id="fYe-1I-zLp"/>
-                                        <constraint firstItem="JmB-0d-2DI" firstAttribute="centerY" secondItem="u9H-dN-Ig9" secondAttribute="centerY" id="oaA-8T-uwy"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="EyP-97-lt3" secondAttribute="trailing" constant="20" symbolic="YES" id="2Sx-Jq-WuC"/>
+                                        <constraint firstItem="EyP-97-lt3" firstAttribute="leading" secondItem="JmB-0d-2DI" secondAttribute="trailing" constant="8" id="6ka-Gy-yDf"/>
+                                        <constraint firstItem="JmB-0d-2DI" firstAttribute="leading" secondItem="u9H-dN-Ig9" secondAttribute="leadingMargin" id="CbY-sd-0Ek"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nKE-h3-DMo" secondAttribute="trailing" constant="20" symbolic="YES" id="Hz8-C9-t0l"/>
+                                        <constraint firstItem="EyP-97-lt3" firstAttribute="baseline" secondItem="JmB-0d-2DI" secondAttribute="baseline" id="SKR-f4-2Gs"/>
+                                        <constraint firstItem="nKE-h3-DMo" firstAttribute="bottom" secondItem="u9H-dN-Ig9" secondAttribute="bottomMargin" id="ct8-hl-9DI"/>
+                                        <constraint firstItem="nKE-h3-DMo" firstAttribute="top" secondItem="JmB-0d-2DI" secondAttribute="bottom" constant="5.5" id="eOC-x8-HoD"/>
+                                        <constraint firstItem="nKE-h3-DMo" firstAttribute="leading" secondItem="JmB-0d-2DI" secondAttribute="leading" id="pi2-28-LqZ"/>
+                                        <constraint firstItem="JmB-0d-2DI" firstAttribute="top" secondItem="u9H-dN-Ig9" secondAttribute="topMargin" id="ukU-dM-UlQ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="firstNameLabel" destination="EyP-97-lt3" id="noB-9i-N1J"/>
+                                    <outlet property="lastContactedLabel" destination="nKE-h3-DMo" id="HXY-Tq-f71"/>
                                     <outlet property="lastNameLabel" destination="JmB-0d-2DI" id="XJa-5Q-MUW"/>
                                 </connections>
                             </tableViewCell>
@@ -50,7 +68,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k1Z-Jh-8SP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-741" y="138"/>
+            <point key="canvasLocation" x="-742.02898550724649" y="137.94642857142856"/>
         </scene>
     </scenes>
 </document>
