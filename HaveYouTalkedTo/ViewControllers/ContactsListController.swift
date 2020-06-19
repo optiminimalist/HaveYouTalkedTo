@@ -19,13 +19,13 @@ class ContactsListController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 20
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        tableView.rowHeight = 65 //UITableView.automaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 65
     }
 }
