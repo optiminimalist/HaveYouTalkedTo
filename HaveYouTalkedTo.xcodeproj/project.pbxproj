@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		4C874EBE249D74000069FCD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C874EBD249D74000069FCD3 /* AppDelegate.swift */; };
 		4C874EC0249D74000069FCD3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C874EBF249D74000069FCD3 /* SceneDelegate.swift */; };
-		4C874EC2249D74000069FCD3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C874EC1249D74000069FCD3 /* ViewController.swift */; };
 		4C874EC5249D74000069FCD3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C874EC3249D74000069FCD3 /* Main.storyboard */; };
 		4C874EC8249D74000069FCD3 /* HaveYouTalkedTo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C874EC6249D74000069FCD3 /* HaveYouTalkedTo.xcdatamodeld */; };
 		4C874ECA249D74040069FCD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C874EC9249D74040069FCD3 /* Assets.xcassets */; };
 		4C874ECD249D74040069FCD3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C874ECB249D74040069FCD3 /* LaunchScreen.storyboard */; };
 		4C874ED8249D74040069FCD3 /* HaveYouTalkedToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C874ED7249D74040069FCD3 /* HaveYouTalkedToTests.swift */; };
 		4C874EE3249D74040069FCD3 /* HaveYouTalkedToUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C874EE2249D74040069FCD3 /* HaveYouTalkedToUITests.swift */; };
+		4C874EF4249D75720069FCD3 /* ContactsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C874EF3249D75720069FCD3 /* ContactsListController.swift */; };
+		4C874EF6249D76800069FCD3 /* ContactsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C874EF5249D76800069FCD3 /* ContactsListCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +40,6 @@
 		4C874EBA249D74000069FCD3 /* HaveYouTalkedTo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HaveYouTalkedTo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C874EBD249D74000069FCD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C874EBF249D74000069FCD3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4C874EC1249D74000069FCD3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4C874EC4249D74000069FCD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4C874EC7249D74000069FCD3 /* HaveYouTalkedTo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HaveYouTalkedTo.xcdatamodel; sourceTree = "<group>"; };
 		4C874EC9249D74040069FCD3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +51,8 @@
 		4C874EDE249D74040069FCD3 /* HaveYouTalkedToUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HaveYouTalkedToUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C874EE2249D74040069FCD3 /* HaveYouTalkedToUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HaveYouTalkedToUITests.swift; sourceTree = "<group>"; };
 		4C874EE4249D74040069FCD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C874EF3249D75720069FCD3 /* ContactsListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListController.swift; sourceTree = "<group>"; };
+		4C874EF5249D76800069FCD3 /* ContactsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,12 +103,10 @@
 		4C874EBC249D74000069FCD3 /* HaveYouTalkedTo */ = {
 			isa = PBXGroup;
 			children = (
-				4C874EBD249D74000069FCD3 /* AppDelegate.swift */,
-				4C874EBF249D74000069FCD3 /* SceneDelegate.swift */,
-				4C874EC1249D74000069FCD3 /* ViewController.swift */,
-				4C874EC3249D74000069FCD3 /* Main.storyboard */,
+				4C874EF2249D75600069FCD3 /* ViewControllers */,
+				4C874EF0249D74220069FCD3 /* Generated */,
+				4C874EF1249D74360069FCD3 /* Storyboards */,
 				4C874EC9249D74040069FCD3 /* Assets.xcassets */,
-				4C874ECB249D74040069FCD3 /* LaunchScreen.storyboard */,
 				4C874ECE249D74040069FCD3 /* Info.plist */,
 				4C874EC6249D74000069FCD3 /* HaveYouTalkedTo.xcdatamodeld */,
 			);
@@ -129,6 +129,33 @@
 				4C874EE4249D74040069FCD3 /* Info.plist */,
 			);
 			path = HaveYouTalkedToUITests;
+			sourceTree = "<group>";
+		};
+		4C874EF0249D74220069FCD3 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				4C874EBD249D74000069FCD3 /* AppDelegate.swift */,
+				4C874EBF249D74000069FCD3 /* SceneDelegate.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		4C874EF1249D74360069FCD3 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				4C874EC3249D74000069FCD3 /* Main.storyboard */,
+				4C874ECB249D74040069FCD3 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		4C874EF2249D75600069FCD3 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4C874EF3249D75720069FCD3 /* ContactsListController.swift */,
+				4C874EF5249D76800069FCD3 /* ContactsListCell.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,9 +289,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C874EC2249D74000069FCD3 /* ViewController.swift in Sources */,
 				4C874EC8249D74000069FCD3 /* HaveYouTalkedTo.xcdatamodeld in Sources */,
 				4C874EBE249D74000069FCD3 /* AppDelegate.swift in Sources */,
+				4C874EF4249D75720069FCD3 /* ContactsListController.swift in Sources */,
+				4C874EF6249D76800069FCD3 /* ContactsListCell.swift in Sources */,
 				4C874EC0249D74000069FCD3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

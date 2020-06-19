@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="INY-qK-RHn">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16097"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Contacts List Controller-->
+        <scene sceneID="ciD-Qj-QEI">
+            <objects>
+                <tableViewController id="INY-qK-RHn" customClass="ContactsListController" customModule="HaveYouTalkedTo" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="aZm-Kh-LuP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactsListCell" id="mvW-1q-57n" customClass="ContactsListCell" customModule="HaveYouTalkedTo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mvW-1q-57n" id="u9H-dN-Ig9">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JmB-0d-2DI">
+                                            <rect key="frame" x="8" y="11" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="JmB-0d-2DI" firstAttribute="leading" secondItem="u9H-dN-Ig9" secondAttribute="leading" constant="8" id="CIy-nl-aPs"/>
+                                        <constraint firstItem="JmB-0d-2DI" firstAttribute="top" secondItem="u9H-dN-Ig9" secondAttribute="topMargin" id="Dvg-MX-5gb"/>
+                                        <constraint firstItem="JmB-0d-2DI" firstAttribute="centerY" secondItem="u9H-dN-Ig9" secondAttribute="centerY" id="HBx-3B-TIS"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="JmB-0d-2DI" secondAttribute="trailing" constant="20" symbolic="YES" id="fYe-1I-zLp"/>
+                                        <constraint firstItem="JmB-0d-2DI" firstAttribute="centerY" secondItem="u9H-dN-Ig9" secondAttribute="centerY" id="oaA-8T-uwy"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="lastNameLabel" destination="JmB-0d-2DI" id="XJa-5Q-MUW"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="INY-qK-RHn" id="CmS-3Y-2Od"/>
+                            <outlet property="delegate" destination="INY-qK-RHn" id="fWT-7M-4XF"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k1Z-Jh-8SP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-741" y="138"/>
+        </scene>
+    </scenes>
+</document>
