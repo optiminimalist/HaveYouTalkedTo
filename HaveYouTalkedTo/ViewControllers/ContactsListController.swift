@@ -73,7 +73,7 @@ class ContactsListController: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if self.store.allContacts.count == 0 {
+        if self.store.getAllContacts().count == 0 {
 
                self.tableView.setEmptyMessage("My Message")
            } else {

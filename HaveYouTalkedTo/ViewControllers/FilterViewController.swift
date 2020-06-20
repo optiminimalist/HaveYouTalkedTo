@@ -29,26 +29,26 @@ class FilterViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        store.allGroups.count
+        store.getAllGroups().count
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         print("DeSelected!")
         self.tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        self.store.allEnabledGroups[indexPath.row] = false
+        self.store.setGroupEnabled(id: indexPath.row, value: false)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected!")
         self.tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        self.store.allEnabledGroups[indexPath.row] = true
+        self.store.setGroupEnabled(id: indexPath.row, value: true)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath)
-        cell.textLabel?.text = self.store.allGroups[indexPath.row].name
+        cell.textLabel?.text = self.store.getAllGroups()[indexPath.row].name
         
-        if self.store.allEnabledGroups[indexPath.row] {
+        if self.store.getAllEnabledGroups()[indexPath.row] {
             tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
         }
         else {

@@ -12,11 +12,11 @@ import ContactsUI
 
 class ContactsStore {
     
-    var allContacts = [Contact]()
-    var allContactsByID = [String: Contact]()
+    private var allContacts = [Contact]()
+    private var allContactsByID = [String: Contact]()
     
-    var allGroups = [CNGroup]()
-    var allEnabledGroups = [Bool]()
+    private var allGroups = [CNGroup]()
+    private var allEnabledGroups = [Bool]()
     
     private let sectionHeadings = ["> 6 months ago", "> 3 months ago", "< a month ago", "< a week ago", "yesterday", "today"]
     let sectionShort = [">6m", ">3m", "<1m", "<1w", "<1d", "0d"]
@@ -77,6 +77,22 @@ class ContactsStore {
     
     func getSectionHeading(forSection: Int) -> String {
         return self.sectionHeadings[forSection]
+    }
+    
+    func getAllGroups() -> [CNGroup] {
+        self.allGroups
+    }
+    
+    func getAllEnabledGroups() -> [Bool] {
+        self.allEnabledGroups
+    }
+    
+    func setGroupEnabled(id: Int, value: Bool){
+        self.allEnabledGroups[id] = value
+    }
+    
+    func getAllContacts() -> [Contact] {
+        self.allContacts
     }
     
     private func organizeLists() {
