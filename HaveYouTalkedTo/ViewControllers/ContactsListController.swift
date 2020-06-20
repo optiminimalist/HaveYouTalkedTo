@@ -13,13 +13,15 @@ class ContactsListController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactsListCell", for: indexPath) as! ContactsListCell
         cell.lastNameLabel.text = "Luckeneder"
         cell.firstNameLabel.text = "Michael"
-        cell.lastContactedLabel.text = "6/12/20"
+        cell.lastContactedLabel.text = "\(indexPath.section)"
 
         return cell
     }
     
+
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return (section+1)*3
     }
     
     override func viewDidLoad() {
@@ -27,5 +29,13 @@ class ContactsListController: UITableViewController {
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 65
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+         return 10
+     }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Section \(section)"
     }
 }
