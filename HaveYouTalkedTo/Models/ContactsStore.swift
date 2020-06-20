@@ -125,8 +125,6 @@ class ContactsStore {
         newContact.lastContactDate = nil
         return newContact
     }
-
-
     
     private func fetchContactsFromCNContacts() -> [CNContact] {
         let keysToFetch: [CNKeyDescriptor] = [ CNContactViewController.descriptorForRequiredKeys()]

@@ -71,7 +71,13 @@ class ContactsListController: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        self.store.getNumberOfSectionsForContacts()
+        if self.store.allContacts.count == 0 {
+
+               self.tableView.setEmptyMessage("My Message")
+           } else {
+               self.tableView.restore()
+           }
+        return self.store.getNumberOfSectionsForContacts()
      }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
