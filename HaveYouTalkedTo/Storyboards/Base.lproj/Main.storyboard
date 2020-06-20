@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="INY-qK-RHn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8Ec-N9-vQa">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Contacts List Controller-->
+        <!--All Contacts-->
         <scene sceneID="ciD-Qj-QEI">
             <objects>
                 <tableViewController id="INY-qK-RHn" customClass="ContactsListController" customModule="HaveYouTalkedTo" customModuleProvider="target" sceneMemberID="viewController">
@@ -14,37 +14,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="AV4-M9-vuf">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Contacts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UOo-h1-QRg">
-                                    <rect key="frame" x="16" y="12" width="171" height="36"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E2b-MN-bik">
-                                    <rect key="frame" x="283" y="15" width="76" height="30"/>
-                                    <state key="normal" title="Randomize"/>
-                                    <connections>
-                                        <action selector="randomizeButtonClicked:" destination="INY-qK-RHn" eventType="touchUpInside" id="TFt-L1-ELv"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            <constraints>
-                                <constraint firstItem="E2b-MN-bik" firstAttribute="centerY" secondItem="AV4-M9-vuf" secondAttribute="centerY" id="2au-t0-dJS"/>
-                                <constraint firstItem="UOo-h1-QRg" firstAttribute="leading" secondItem="AV4-M9-vuf" secondAttribute="leading" constant="16" id="3rh-iv-3ch"/>
-                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UOo-h1-QRg" secondAttribute="trailing" constant="20" symbolic="YES" id="HTJ-7D-alN"/>
-                                <constraint firstItem="UOo-h1-QRg" firstAttribute="centerY" secondItem="AV4-M9-vuf" secondAttribute="centerY" id="RqH-Yc-b35"/>
-                                <constraint firstItem="E2b-MN-bik" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UOo-h1-QRg" secondAttribute="trailing" constant="8" symbolic="YES" id="bzS-8j-qDh"/>
-                                <constraint firstAttribute="trailing" secondItem="E2b-MN-bik" secondAttribute="trailing" constant="16" id="jN5-Vf-2Uc"/>
-                            </constraints>
-                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactsListCell" rowHeight="65" id="mvW-1q-57n" customClass="ContactsListCell" customModule="HaveYouTalkedTo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="375" height="65"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mvW-1q-57n" id="u9H-dN-Ig9">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
@@ -93,8 +65,38 @@
                             <outlet property="delegate" destination="INY-qK-RHn" id="fWT-7M-4XF"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="All Contacts" id="KSu-lC-TyP">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="8qk-yA-HDb">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="E2b-MN-bik">
+                                <rect key="frame" x="283" y="7" width="76" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Randomize"/>
+                                <connections>
+                                    <action selector="randomizeButtonClicked:" destination="INY-qK-RHn" eventType="touchUpInside" id="TFt-L1-ELv"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k1Z-Jh-8SP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="196" y="137.18140929535232"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="762-lD-cE4">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8Ec-N9-vQa" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6pg-qx-ZtR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="INY-qK-RHn" kind="relationship" relationship="rootViewController" id="D2H-L2-ImI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tcZ-4S-7mq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-743.20000000000005" y="137.18140929535232"/>
         </scene>

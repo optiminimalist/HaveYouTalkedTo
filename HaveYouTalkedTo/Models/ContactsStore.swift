@@ -14,6 +14,7 @@ class ContactsStore {
     
     var allContacts = [Contact]()
     private let sectionHeadings = ["> 6 months ago", "> 3 months ago", "> a month ago", "< a month ago", "< a week ago", "yesterday", "today"]
+    let sectionShort = [">6m", ">3m", ">1m", "<1m", "<1w", "<1d", "0d"]
     private let sectionThresholds: [Date] = [Date.from(0000, 01, 01)!, Date().changeDays(by: -90), Date().changeDays(by: -30), Date().changeDays(by: -7), Date().changeDays(by: -1), Date().stripTime()]
 
     private var sectionTitleForContacts = [String]()
@@ -34,8 +35,8 @@ class ContactsStore {
         self.savePersistentContext()
         self.organizeLists()
         
-        //todo remove
-        self.randomizeDates()
+//        //todo remove
+//        self.randomizeDates()
 
     }
     

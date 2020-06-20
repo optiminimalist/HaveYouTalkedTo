@@ -37,23 +37,46 @@ class ContactsListController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
 
         self.askUserForContactsPermission(onCompletion: self.store.fetchContacts)
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 65
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(addressBookDidChange),
+            name: NSNotification.Name.CNContactStoreDidChange,
+            object: nil
+        )
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
+    // Gets called when any modification is done in iOS contact app
+    @objc private func addressBookDidChange(notification: NSNotification) {
+        self.store.fetchContacts()
+        self.tableView.reloadData()
+    }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         self.store.getNumberOfSectionsForContacts()
      }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.store.getNumberOfContacts(forSection: section)
+        self.store.getNumberOfContacts(forSection: section)
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.store.getSectionHeading(forSection: section)
+        self.store.getSectionHeading(forSection: section)
+    }
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        self.store.sectionShort
     }
     
     private func askUserForContactsPermission(
