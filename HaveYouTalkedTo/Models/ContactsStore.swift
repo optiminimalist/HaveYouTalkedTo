@@ -45,10 +45,6 @@ class ContactsStore {
 
         self.savePersistentContext()
         self.organizeLists()
-        
-//        //todo remove
-//        self.randomizeDates()
-
     }
     
     
@@ -158,44 +154,3 @@ class ContactsStore {
 
     
 }
-//
-//class ContactsStore {
-////    var allContacts = [String: Contact]()
-//    var sortedContacts = [Contact]()
-//
-//    init() {
-//        self.sortedContacts = self.loadAllContacts().sorted()
-//    }
-//
-//    func savePersistentContext() {
-//        do {
-//           try context.save()
-//
-//           } catch {
-//               // Error Handling
-//               print("Error")
-//           }
-//    }
-//
-
-//
-//    func loadAllContacts() -> [Contact] {
-//        return self.fetchContactsFromCNContacts().map { parseContact($0) }
-////               .reduce(into: [String: Contact]()) {
-////                   $0[$1.id] = $1
-////               }
-//
-//    }
-//
-//
-//
-//    private func parseContact(_ contact: CNContact) -> Contact {
-//        let fetchedLastContact = fetchPersistedContactFromCoreData(id: contact.identifier)
-//
-//        return Contact(id: contact.identifier, firstName: contact.givenName, lastName: contact.familyName, persistedContact: fetchedLastContact, cnContact: contact)
-//    }
-//
-//
-//
-//
-//}
