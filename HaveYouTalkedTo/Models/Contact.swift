@@ -8,7 +8,7 @@
 
 import Contacts
 
-struct Contact: Comparable, Equatable {
+struct Contact: Comparable {
     static func < (lhs: Contact, rhs: Contact) -> Bool {
         if let l = lhs.lastContactDate, let r = rhs.lastContactDate {
             if l != r {

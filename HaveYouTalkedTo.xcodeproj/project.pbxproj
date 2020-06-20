@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4C85E15F249D9C73007DB35D /* ContactsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85E15E249D9C73007DB35D /* ContactsStore.swift */; };
 		4C85E161249D9CCF007DB35D /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85E160249D9CCF007DB35D /* Contact.swift */; };
+		4C85E167249DAAC8007DB35D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85E166249DAAC8007DB35D /* Helpers.swift */; };
 		4C874EBE249D74000069FCD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C874EBD249D74000069FCD3 /* AppDelegate.swift */; };
 		4C874EC0249D74000069FCD3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C874EBF249D74000069FCD3 /* SceneDelegate.swift */; };
 		4C874EC5249D74000069FCD3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C874EC3249D74000069FCD3 /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		4C85E15E249D9C73007DB35D /* ContactsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsStore.swift; sourceTree = "<group>"; };
 		4C85E160249D9CCF007DB35D /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		4C85E166249DAAC8007DB35D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		4C874EBA249D74000069FCD3 /* HaveYouTalkedTo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HaveYouTalkedTo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C874EBD249D74000069FCD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C874EBF249D74000069FCD3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				4C874EF3249D75720069FCD3 /* ContactsListController.swift */,
+				4C85E166249DAAC8007DB35D /* Helpers.swift */,
 				4C874EF5249D76800069FCD3 /* ContactsListCell.swift */,
 			);
 			path = ViewControllers;
@@ -306,6 +309,7 @@
 				4C874EC8249D74000069FCD3 /* HaveYouTalkedTo.xcdatamodeld in Sources */,
 				4C874EBE249D74000069FCD3 /* AppDelegate.swift in Sources */,
 				4C85E15F249D9C73007DB35D /* ContactsStore.swift in Sources */,
+				4C85E167249DAAC8007DB35D /* Helpers.swift in Sources */,
 				4C874EF4249D75720069FCD3 /* ContactsListController.swift in Sources */,
 				4C874EF6249D76800069FCD3 /* ContactsListCell.swift in Sources */,
 				4C874EC0249D74000069FCD3 /* SceneDelegate.swift in Sources */,
