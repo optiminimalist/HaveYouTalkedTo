@@ -23,11 +23,6 @@ class ContactsListController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.store.markLastContacted(forIndexPath: indexPath)
-        self.tableView.reloadData()
-
-    }
     
     @IBAction func randomizeButtonClicked(_ sender: UIButton) {
         self.store.randomizeDates()
@@ -51,6 +46,18 @@ class ContactsListController: UITableViewController {
             name: NSNotification.Name.CNContactStoreDidChange,
             object: nil
         )
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        becomeFirstResponder()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        resignFirstResponder()
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+      return true
     }
 
     deinit {
@@ -103,4 +110,28 @@ class ContactsListController: UITableViewController {
             }
         }
     }
+}
+
+extension ContactsListController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let contact = self.store.contactsByLastContacted[indexPath.section][indexPath.row]
+        let previousContact = contact.lastContactDate
+        self.store.markLastContacted(forIndexPath: indexPath)
+        let currentContact = contact.lastContactDate
+        
+        self.contactDidChange(id: contact.id, fromDate: previousContact, toDate: currentContact)
+
+    }
+    
+    func contactDidChange(id: String, fromDate: Date?, toDate: Date?) {
+        
+        undoManager?.registerUndo(withTarget: self) { target in
+            self.store.markLastContacted(id: id, lastContacted: fromDate)
+            self.tableView.reloadData()
+            self.contactDidChange(id: id, fromDate: toDate, toDate: fromDate)
+        }
+
+        self.tableView.reloadData()
+    }
+
 }

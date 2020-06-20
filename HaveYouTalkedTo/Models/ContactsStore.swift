@@ -13,6 +13,7 @@ import ContactsUI
 class ContactsStore {
     
     var allContacts = [Contact]()
+    var allContactsByID = [String: Contact]()
     private let sectionHeadings = ["> 6 months ago", "> 3 months ago", "< a month ago", "< a week ago", "yesterday", "today"]
     let sectionShort = [">6m", ">3m", "<1m", "<1w", "<1d", "0d"]
     private let sectionThresholds: [Date] = [Date.from(0000, 01, 01)!, Date().changeDays(by: -90), Date().changeDays(by: -30), Date().changeDays(by: -7), Date().changeDays(by: -1), Date().stripTime()]
@@ -28,10 +29,18 @@ class ContactsStore {
         self.organizeLists()
     }
     
+    func markLastContacted(id: String, lastContacted: Date?) {
+        self.allContactsByID[id]?.lastContactDate = lastContacted
+        
+        self.savePersistentContext()
+        self.organizeLists()
+    }
+    
     func fetchContacts() {
         let cnContacts = self.fetchContactsFromCNContacts()
         self.allContacts = cnContacts.map(enrichCNContactWithPeristedContact(_:)).sorted()
-            
+        self.allContactsByID = Dictionary(uniqueKeysWithValues: self.allContacts.map { ($0.id, $0) })
+
         self.savePersistentContext()
         self.organizeLists()
         
@@ -39,6 +48,7 @@ class ContactsStore {
 //        self.randomizeDates()
 
     }
+    
     
     // TODO delete
     func randomizeDates() {
