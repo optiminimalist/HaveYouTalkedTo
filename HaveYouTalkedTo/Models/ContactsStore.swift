@@ -14,6 +14,10 @@ class ContactsStore {
     
     var allContacts = [Contact]()
     var allContactsByID = [String: Contact]()
+    
+    var allGroups = [CNGroup]()
+    var allEnabledGroups = [Bool]()
+    
     private let sectionHeadings = ["> 6 months ago", "> 3 months ago", "< a month ago", "< a week ago", "yesterday", "today"]
     let sectionShort = [">6m", ">3m", "<1m", "<1w", "<1d", "0d"]
     private let sectionThresholds: [Date] = [Date.from(0000, 01, 01)!, Date().changeDays(by: -90), Date().changeDays(by: -30), Date().changeDays(by: -7), Date().changeDays(by: -1), Date().stripTime()]
@@ -39,6 +43,11 @@ class ContactsStore {
     }
     
     func fetchContacts() {
+        // replace with dictionary
+        self.allGroups = self.fetchContactGroupsFromCNContacts().sorted(by: {$0.name <= $1.name})
+        self.allEnabledGroups = self.allGroups.map({_ in true})
+        print(self.allEnabledGroups.count == self.allGroups.count)
+        
         let cnContacts = self.fetchContactsFromCNContacts()
         self.allContacts = cnContacts.map(enrichCNContactWithPeristedContact(_:)).sorted()
         self.allContactsByID = Dictionary(uniqueKeysWithValues: self.allContacts.map { ($0.id, $0) })
@@ -140,16 +149,24 @@ class ContactsStore {
 
         return contacts
     }
-       //TODO should this be here?
-       private func savePersistentContext() {
-           do {
-              try context.save()
+    
+    private func fetchContactGroupsFromCNContacts() -> [CNGroup] {
+        let groups = try! CNContactStore().groups(matching: nil)
 
-              } catch {
-                  // TODO Error Handling
-                  print("Error")
-              }
-       }
+        return groups
+    }
+    
+
+   //TODO should this be here?
+   private func savePersistentContext() {
+       do {
+          try context.save()
+
+          } catch {
+              // TODO Error Handling
+              print("Error")
+          }
+   }
     
 
     

@@ -20,6 +20,7 @@
 		4C874EE3249D74040069FCD3 /* HaveYouTalkedToUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C874EE2249D74040069FCD3 /* HaveYouTalkedToUITests.swift */; };
 		4C874EF4249D75720069FCD3 /* ContactsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C874EF3249D75720069FCD3 /* ContactsListController.swift */; };
 		4C874EF6249D76800069FCD3 /* ContactsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C874EF5249D76800069FCD3 /* ContactsListCell.swift */; };
+		4CB67250249E792F007B982B /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6724F249E792F007B982B /* FilterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		4C874EE4249D74040069FCD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C874EF3249D75720069FCD3 /* ContactsListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListController.swift; sourceTree = "<group>"; };
 		4C874EF5249D76800069FCD3 /* ContactsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListCell.swift; sourceTree = "<group>"; };
+		4CB6724F249E792F007B982B /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 				4C874EF3249D75720069FCD3 /* ContactsListController.swift */,
 				4C85E166249DAAC8007DB35D /* Helpers.swift */,
 				4C874EF5249D76800069FCD3 /* ContactsListCell.swift */,
+				4CB6724F249E792F007B982B /* FilterViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				4C874EC8249D74000069FCD3 /* HaveYouTalkedTo.xcdatamodeld in Sources */,
 				4C874EBE249D74000069FCD3 /* AppDelegate.swift in Sources */,
 				4C85E15F249D9C73007DB35D /* ContactsStore.swift in Sources */,
+				4CB67250249E792F007B982B /* FilterViewController.swift in Sources */,
 				4C85E167249DAAC8007DB35D /* Helpers.swift in Sources */,
 				4C874EF4249D75720069FCD3 /* ContactsListController.swift in Sources */,
 				4C874EF6249D76800069FCD3 /* ContactsListCell.swift in Sources */,
