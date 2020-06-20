@@ -11,7 +11,6 @@ import CoreData
 import ContactsUI
 
 class ContactsStore {
-    private var allContacts = [Contact]()
     private var allContactsByID = [String: Contact]()
     
     private var allGroups = [CNGroup]()
@@ -48,23 +47,23 @@ class ContactsStore {
         print(self.allEnabledGroups.count == self.allGroups.count)
         
         let cnContacts = self.fetchContactsFromCNContacts()
-        self.allContacts = cnContacts.map(enrichCNContactWithPeristedContact(_:)).sorted()
-        self.allContactsByID = Dictionary(uniqueKeysWithValues: self.allContacts.map { ($0.id, $0) })
+        let allContacts = cnContacts.map(enrichCNContactWithPeristedContact(_:)).sorted()
+        self.allContactsByID = Dictionary(uniqueKeysWithValues: allContacts.map { ($0.id, $0) })
 
         self.savePersistentContext()
         self.organizeLists()
     }
     
     
-    // TODO delete
-    func randomizeDates() {
-        for var c in self.allContacts {
-            c.lastContactDate = generateRandomDate(daysBack: 180)
-        }
-        
-        self.savePersistentContext()
-        self.organizeLists()
-    }
+//    // TODO delete
+//    func randomizeDates() {
+//        for var c in self.allContacts {
+//            c.lastContactDate = generateRandomDate(daysBack: 180)
+//        }
+//        
+//        self.savePersistentContext()
+//        self.organizeLists()
+//    }
     
     func getNumberOfSectionsForContacts() -> Int {
         return self.contactsByLastContacted.count
@@ -91,11 +90,11 @@ class ContactsStore {
     }
     
     func getAllContacts() -> [Contact] {
-        self.allContacts
+        allContactsByID.values.map({$0})
     }
     
     private func organizeLists() {
-        self.allContacts = self.allContacts.sorted()
+        let allContacts = self.getAllContacts().sorted()
         
 //        let filteredContacts = self.allContacts.filter(
 //        {
@@ -114,7 +113,7 @@ class ContactsStore {
         }
         
         // iterate over all contacts and assign them to their bucket
-        for c in self.allContacts {
+        for c in allContacts {
             if let d = c.lastContactDate {
                 for (idx, element) in self.sectionThresholds.enumerated().reversed() {
                    if d >= element {
