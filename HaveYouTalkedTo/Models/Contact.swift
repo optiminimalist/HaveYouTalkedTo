@@ -39,7 +39,7 @@ struct Contact: Comparable {
     var persistedContact: PersistedContact?
     var cnContact: CNContact?
     
-    func setLastContacted(_ d: Date) {
+    func setLastContactDate(_ d: Date) {
         self.persistedContact?.lastContactDate = d
     }
     

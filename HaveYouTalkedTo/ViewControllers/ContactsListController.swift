@@ -15,7 +15,7 @@ class ContactsListController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactsListCell", for: indexPath) as! ContactsListCell
         
-        let contact = self.store.allContacts[indexPath.item]
+        let contact = self.store.allContacts[indexPath.row]
         cell.lastNameLabel.text = contact.lastName
         cell.firstNameLabel.text = contact.firstName
         cell.lastContactedLabel.text = formatDate(contact.lastContactDate) ?? "never"
@@ -25,6 +25,12 @@ class ContactsListController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.store.allContacts.count
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.store.markLastContacted(id: indexPath.row)
+        self.tableView.reloadData()
+
     }
     
     override func viewDidLoad() {
