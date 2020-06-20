@@ -11,7 +11,6 @@ import CoreData
 import ContactsUI
 
 class ContactsStore {
-    
     private var allContacts = [Contact]()
     private var allContactsByID = [String: Contact]()
     
@@ -97,6 +96,15 @@ class ContactsStore {
     
     private func organizeLists() {
         self.allContacts = self.allContacts.sorted()
+        
+//        let filteredContacts = self.allContacts.filter(
+//        {
+//            for (idx, elm) in self.allGroups.enumerated(){
+//                if $0.cnContact.
+//            }
+//            $0 == $0
+//        }
+//        )
         
         
         // instantiate contactsByLastContacted
