@@ -24,6 +24,20 @@ class ContactsStore {
     func fetchContacts() {
         let cnContacts = self.fetchContactsFromCNContacts()
         self.allContacts = cnContacts.map(enrichCNContactWithPeristedContact(_:)).sorted()
+            
+        self.savePersistentContext()
+        self.organizeLists()
+        
+        //todo remove
+        self.randomizeDates()
+
+    }
+    
+    // TODO delete
+    func randomizeDates() {
+        for var c in self.allContacts {
+            c.lastContactDate = generateRandomDate(daysBack: 180)
+        }
         
         self.savePersistentContext()
         self.organizeLists()

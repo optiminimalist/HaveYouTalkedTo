@@ -29,11 +29,17 @@ struct Contact: Comparable {
     var firstName: String
     var lastName: String
     var lastContactDate: Date? {
-        if let d = self.persistedContact {
-            return d.lastContactDate
+        get {
+                if let d = self.persistedContact {
+                return d.lastContactDate
+            }
+            else {
+                return nil
+            }
         }
-        else {
-            return nil
+        
+        set {
+            self.persistedContact?.lastContactDate = newValue
         }
     }
     var persistedContact: PersistedContact?

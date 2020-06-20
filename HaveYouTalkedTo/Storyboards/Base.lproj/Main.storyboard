@@ -24,12 +24,22 @@
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E2b-MN-bik">
+                                    <rect key="frame" x="283" y="15" width="76" height="30"/>
+                                    <state key="normal" title="Randomize"/>
+                                    <connections>
+                                        <action selector="randomizeButtonClicked:" destination="INY-qK-RHn" eventType="touchUpInside" id="TFt-L1-ELv"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
+                                <constraint firstItem="E2b-MN-bik" firstAttribute="centerY" secondItem="AV4-M9-vuf" secondAttribute="centerY" id="2au-t0-dJS"/>
                                 <constraint firstItem="UOo-h1-QRg" firstAttribute="leading" secondItem="AV4-M9-vuf" secondAttribute="leading" constant="16" id="3rh-iv-3ch"/>
                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UOo-h1-QRg" secondAttribute="trailing" constant="20" symbolic="YES" id="HTJ-7D-alN"/>
                                 <constraint firstItem="UOo-h1-QRg" firstAttribute="centerY" secondItem="AV4-M9-vuf" secondAttribute="centerY" id="RqH-Yc-b35"/>
+                                <constraint firstItem="E2b-MN-bik" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UOo-h1-QRg" secondAttribute="trailing" constant="8" symbolic="YES" id="bzS-8j-qDh"/>
+                                <constraint firstAttribute="trailing" secondItem="E2b-MN-bik" secondAttribute="trailing" constant="16" id="jN5-Vf-2Uc"/>
                             </constraints>
                         </view>
                         <prototypes>

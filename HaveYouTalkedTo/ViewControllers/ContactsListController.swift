@@ -33,6 +33,11 @@ class ContactsListController: UITableViewController {
 
     }
     
+    @IBAction func randomizeButtonClicked(_ sender: UIButton) {
+        self.store.randomizeDates()
+        self.tableView.reloadData()
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
