@@ -10,9 +10,9 @@ import Contacts
 
 struct Contact: Comparable {
     static func < (lhs: Contact, rhs: Contact) -> Bool {
-        if let l = lhs.lastContactDate, let r = rhs.lastContactDate {
-            if l != r {
-                return l < r
+        if let lhsDate = lhs.lastContactDate, let rhsDate = rhs.lastContactDate {
+            if lhsDate != rhsDate {
+                return lhsDate < rhsDate
             } else {
                 return lhs.lastName < rhs.lastName
             }
@@ -30,8 +30,8 @@ struct Contact: Comparable {
     var lastName: String
     var lastContactDate: Date? {
         get {
-                if let d = self.persistedContact {
-                return d.lastContactDate
+                if let contact = self.persistedContact {
+                return contact.lastContactDate
             }
             else {
                 return nil

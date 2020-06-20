@@ -20,6 +20,8 @@ class ContactsStore {
 
     private var sectionTitleForContacts = [String]()
     var contactsByLastContacted = [[Contact]]()
+    
+    var context: NSManagedObjectContext!
 
     
     func markLastContacted(forIndexPath indexPath: IndexPath) {
@@ -142,19 +144,7 @@ class ContactsStore {
 
         return contacts
     }
-    
-    private var context: NSManagedObjectContext {
-           //1
-           let appDelegate =
-             UIApplication.shared.delegate as! AppDelegate
-
-           let managedContext =
-             appDelegate.persistentContainer.viewContext
-
-           return managedContext
-
-       }
-       
+       //TODO should this be here?
        private func savePersistentContext() {
            do {
               try context.save()

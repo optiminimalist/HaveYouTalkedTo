@@ -31,7 +31,7 @@ extension Date {
         let date = Calendar.current.date(from: components)
         return date!
     }
-    
+
     func changeDays(by days: Int) -> Date {
         return Calendar.current.date(byAdding: .day, value: days, to: self)!.stripTime()
     }
@@ -41,16 +41,16 @@ extension Date {
 func formatDate(_ date: Date?) -> String? {
     let dateFormatterGet = DateFormatter()
     dateFormatterGet.dateFormat = "MM/dd/yyyy"
-    
-    if let d = date {
-        return dateFormatterGet.string(from: d)
+
+    if let unwrappedDate = date {
+        return dateFormatterGet.string(from: unwrappedDate)
     }
-    
+
     return nil
-   
+
 }
 
-func generateRandomDate(daysBack: Int)-> Date?{
+func generateRandomDate(daysBack: Int) -> Date? {
     let day = arc4random_uniform(UInt32(daysBack))+1
     let hour = arc4random_uniform(23)
     let minute = arc4random_uniform(59)

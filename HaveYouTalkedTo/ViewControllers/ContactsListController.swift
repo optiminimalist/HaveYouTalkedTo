@@ -10,7 +10,7 @@ import UIKit
 import Contacts
 
 class ContactsListController: UITableViewController {
-    private let store = ContactsStore()
+    var store: ContactsStore!
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactsListCell", for: indexPath) as! ContactsListCell
