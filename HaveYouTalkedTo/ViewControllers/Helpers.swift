@@ -31,6 +31,11 @@ extension Date {
         let date = Calendar.current.date(from: components)
         return date!
     }
+    
+    func changeDays(by days: Int) -> Date {
+        return Calendar.current.date(byAdding: .day, value: days, to: self)!.stripTime()
+    }
+
 }
 
 func formatDate(_ date: Date?) -> String? {

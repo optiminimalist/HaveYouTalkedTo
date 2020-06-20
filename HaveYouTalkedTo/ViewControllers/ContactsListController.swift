@@ -15,7 +15,7 @@ class ContactsListController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactsListCell", for: indexPath) as! ContactsListCell
         
-        let contact = self.store.allContacts[indexPath.row]
+        let contact = self.store.contactsByLastContacted[indexPath.section][indexPath.row]
         cell.lastNameLabel.text = contact.lastName
         cell.firstNameLabel.text = contact.firstName
         cell.lastContactedLabel.text = formatDate(contact.lastContactDate) ?? "never"
@@ -23,12 +23,8 @@ class ContactsListController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.store.allContacts.count
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.store.markLastContacted(id: indexPath.row)
+        self.store.markLastContacted(forIndexPath: indexPath)
         self.tableView.reloadData()
 
     }
@@ -38,6 +34,7 @@ class ContactsListController: UITableViewController {
         self.tableView.reloadData()
 
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,13 +44,17 @@ class ContactsListController: UITableViewController {
         tableView.estimatedRowHeight = 65
     }
     
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//         return 1
-//     }
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        self.store.getNumberOfSectionsForContacts()
+     }
     
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return "Section \(section)"
-//    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.store.getNumberOfContacts(forSection: section)
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.store.getSectionHeading(forSection: section)
+    }
     
     private func askUserForContactsPermission(
         onCompletion:@escaping ()->Void
@@ -71,9 +72,9 @@ class ContactsListController: UITableViewController {
 
                 onCompletion()
                     
-//                DispatchQueue.main.async {
-//                    self.contactsTableView.reloadData()
-//                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             } else {
                 print("Access denied..")
             }

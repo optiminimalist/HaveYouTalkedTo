@@ -13,9 +13,15 @@ import ContactsUI
 class ContactsStore {
     
     var allContacts = [Contact]()
+    private let sectionHeadings = ["> 6 months ago", "> 3 months ago", "> a month ago", "< a month ago", "< a week ago", "yesterday", "today"]
+    private let sectionThresholds: [Date] = [Date.from(0000, 01, 01)!, Date().changeDays(by: -90), Date().changeDays(by: -30), Date().changeDays(by: -7), Date().changeDays(by: -1), Date().stripTime()]
+
+    private var sectionTitleForContacts = [String]()
+    var contactsByLastContacted = [[Contact]]()
+
     
-    func markLastContacted(id: Int)  {
-        self.allContacts[id].setLastContactDate(Date().stripTime())
+    func markLastContacted(forIndexPath indexPath: IndexPath) {
+        self.contactsByLastContacted[indexPath.section][indexPath.row].setLastContactDate(Date().stripTime())
         
         self.savePersistentContext()
         self.organizeLists()
@@ -43,8 +49,42 @@ class ContactsStore {
         self.organizeLists()
     }
     
+    func getNumberOfSectionsForContacts() -> Int {
+        return self.contactsByLastContacted.count
+    }
+    
+    func getNumberOfContacts(forSection: Int) -> Int {
+        return self.contactsByLastContacted[forSection].count
+    }
+    
+    func getSectionHeading(forSection: Int) -> String {
+        return self.sectionHeadings[forSection]
+    }
+    
     private func organizeLists() {
         self.allContacts = self.allContacts.sorted()
+        
+        
+        // instantiate contactsByLastContacted
+        self.contactsByLastContacted = [[Contact]]()
+        for _ in 0...self.sectionThresholds.count-1 {
+            self.contactsByLastContacted.append([Contact]())
+        }
+        
+        // iterate over all contacts and assign them to their bucket
+        for c in self.allContacts {
+            if let d = c.lastContactDate {
+                for (idx, element) in self.sectionThresholds.enumerated().reversed() {
+                   if d >= element {
+                    self.contactsByLastContacted[idx].append(c)
+                    break
+                   }
+                }
+            }
+            else {
+                self.contactsByLastContacted[0].append(c)
+            }
+        }
     }
     
     private func enrichCNContactWithPeristedContact(_ contact: CNContact) -> Contact {
