@@ -46,8 +46,10 @@ class ContactsStore {
         self.allEnabledGroups = self.allGroups.map({_ in true})
         print(self.allEnabledGroups.count == self.allGroups.count)
         
-        let cnContacts = self.fetchContactsFromCNContacts()
-        let allContacts = cnContacts.map(enrichCNContactWithPeristedContact(_:)).sorted()
+        let cnContacts = self.fetchAllCNContacts()
+        let allContacts: [Contact] = cnContacts.map {
+            enrichCNContactWithPeristedContact($0, Array($1))
+        }.sorted()
         self.allContactsByID = Dictionary(uniqueKeysWithValues: allContacts.map { ($0.id, $0) })
 
         self.savePersistentContext()
@@ -128,9 +130,9 @@ class ContactsStore {
         }
     }
     
-    private func enrichCNContactWithPeristedContact(_ contact: CNContact) -> Contact {
+    private func enrichCNContactWithPeristedContact(_ contact: CNContact, _ groups: [CNGroup]) -> Contact {
         let fetchedLastContact = fetchOrCreatePersistedContact(id: contact.identifier)
-        return Contact(id: contact.identifier, firstName: contact.givenName, lastName: contact.familyName, persistedContact: fetchedLastContact, cnContact: contact)
+        return Contact(id: contact.identifier, firstName: contact.givenName, lastName: contact.familyName, persistedContact: fetchedLastContact, cnContact: contact, cnGroups: groups)
     }
     
     private func fetchOrCreatePersistedContact(id: String) -> PersistedContact {
@@ -156,16 +158,31 @@ class ContactsStore {
         return newContact
     }
     
-    private func fetchContactsFromCNContacts() -> [CNContact] {
-        
-        var contacts: Set<CNContact> = []
+    private func fetchAllCNContacts() -> [CNContact: Set<CNGroup>] {
+        var contactsWithGroups: [CNContact: Set<CNGroup>] = [:]
 
         for group in self.allGroups {
             let contactsByGroup = self.fetchContactsFromCNContacts(byGroup: group)
-            contacts = contacts.union(contactsByGroup)
-        }
+            
+            for contact in contactsByGroup {
+                if contactsWithGroups[contact] == nil {
+                    contactsWithGroups[contact] = []
+                }
+                contactsWithGroups[contact] = contactsWithGroups[contact]!.union([group])
 
-        return Array(contacts)
+            }
+            
+        }
+        
+//        // contacts without groups
+//        for contact in self.fetchContactsFromCNContacts() {
+//            if contactsWithGroups[contact] == nil {
+//                contactsWithGroups[contact] = []
+//            }
+//        }
+
+
+        return contactsWithGroups
     }
     
     private func fetchContactGroupsFromCNContacts() -> [CNGroup] {
@@ -181,6 +198,26 @@ class ContactsStore {
 
         return try! CNContactStore().unifiedContacts(matching: predicate, keysToFetch: keysToFetch)
     }
+    
+    private func fetchContactsFromCNContacts() -> [CNContact] {
+        let keysToFetch: [CNKeyDescriptor] = [ CNContactViewController.descriptorForRequiredKeys()]
+        let req = CNContactFetchRequest(keysToFetch: keysToFetch)
+
+        var contacts: [CNContact] = []
+        try! CNContactStore().enumerateContacts(with: req) {
+            contact, stop in
+            if contact.givenName.isEmpty || contact.familyName.isEmpty {
+
+            } else {
+                contacts.append(contact)
+            }
+        }
+
+        return contacts
+    }
+
+    
+    
     
 
    //TODO should this be here?

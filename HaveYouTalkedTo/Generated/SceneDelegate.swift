@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let contactsStore = ContactsStore()
         contactsStore.context = context
-
+        
         guard let rvc = window!.rootViewController as? UITabBarController else {
             fatalError("expected TabBarController as first view controller")
         }
@@ -32,10 +32,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 if let tmp = viewController as? ContactsListController {
                     tmp.store = contactsStore
                 }
+                
                 if let tmp = viewController as? FilterViewController {
                     tmp.store = contactsStore
                 }
-
             }
             
             if let tmp = viewController as? UINavigationController {

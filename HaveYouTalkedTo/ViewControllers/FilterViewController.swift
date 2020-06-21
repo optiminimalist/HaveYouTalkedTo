@@ -56,4 +56,5 @@ class FilterViewController: UITableViewController {
         }
         return cell
     }
+    
 }

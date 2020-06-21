@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import Contacts
 
 class ContactsFilter {
-    
+    var excludeCategories = [CNGroup]()
 }
+
