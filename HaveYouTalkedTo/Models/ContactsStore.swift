@@ -71,8 +71,8 @@ class ContactsStore {
         return self.contactsByLastContacted.count
     }
     
-    func getNumberOfContacts(forSection: Int) -> Int {
-        return self.contactsByLastContacted[forSection].count
+    func getContacts(forSection: Int) -> [Contact] {
+        return self.contactsByLastContacted[forSection]
     }
     
     func getSectionHeading(forSection: Int) -> String {
@@ -89,6 +89,7 @@ class ContactsStore {
     
     func setGroupEnabled(id: Int, value: Bool){
         self.allEnabledGroups[id] = value
+        self.organizeLists()
     }
     
     func getAllContacts() -> [Contact] {
@@ -96,7 +97,7 @@ class ContactsStore {
     }
     
     private func organizeLists() {
-        let allContacts = self.getAllContacts().sorted()
+        let allContacts = filterByGroups(contacts: self.getAllContacts().sorted())
         
 //        let filteredContacts = self.allContacts.filter(
 //        {
@@ -128,6 +129,8 @@ class ContactsStore {
                 self.contactsByLastContacted[0].append(c)
             }
         }
+        
+        print(allContacts.map({$0.firstName}))
     }
     
     private func enrichCNContactWithPeristedContact(_ contact: CNContact, _ groups: [CNGroup]) -> Contact {
@@ -174,12 +177,12 @@ class ContactsStore {
             
         }
         
-//        // contacts without groups
-//        for contact in self.fetchContactsFromCNContacts() {
-//            if contactsWithGroups[contact] == nil {
-//                contactsWithGroups[contact] = []
-//            }
-//        }
+        // contacts without groups
+        for contact in self.fetchContactsFromCNContacts() {
+            if contactsWithGroups[contact] == nil {
+                contactsWithGroups[contact] = []
+            }
+        }
 
 
         return contactsWithGroups
@@ -216,7 +219,26 @@ class ContactsStore {
         return contacts
     }
 
-    
+    private func filterByGroups(contacts: [Contact]) -> [Contact] {
+          
+        let groups: [CNGroup] = zip(self.getAllGroups(), self.getAllEnabledGroups()).filter {
+              $0.1
+          }.map {
+              $0.0
+          }
+          
+          return contacts.filter {
+              for filterGroup in groups {
+                  for cnGroup in $0.cnGroups {
+                      if filterGroup == cnGroup {
+                          return true
+                      }
+                  }
+              }
+              
+              return false
+          }
+      }
     
     
 

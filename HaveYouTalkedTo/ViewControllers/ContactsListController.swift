@@ -35,10 +35,16 @@ class ContactsListController: UITableViewController {
             name: NSNotification.Name.CNContactStoreDidChange,
             object: nil
         )
+        
+
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         becomeFirstResponder()
+        
+        // TODO don't
+        self.tableView.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -61,7 +67,6 @@ class ContactsListController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         if self.store.getAllContacts().count == 0 {
-
                self.tableView.setEmptyMessage("My Message")
            } else {
                self.tableView.restore()
@@ -69,10 +74,10 @@ class ContactsListController: UITableViewController {
         return self.store.getNumberOfSectionsForContacts()
      }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
-        return self.store.getNumberOfContacts(forSection: section)
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.store.contactsByLastContacted[section].count
         
-        
+
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -95,6 +100,8 @@ class ContactsListController: UITableViewController {
         self.store.sectionShort
     }
     
+  
+    
 }
 
 extension ContactsListController {
@@ -103,12 +110,12 @@ extension ContactsListController {
         let previousContact = contact.lastContactDate
         self.store.markLastContacted(forIndexPath: indexPath)
         let currentContact = contact.lastContactDate
-        
+
         self.contactDidChange(id: contact.id, fromDate: previousContact, toDate: currentContact)
     }
-    
+
     func contactDidChange(id: String, fromDate: Date?, toDate: Date?) {
-        
+
         undoManager?.registerUndo(withTarget: self) { target in
             self.store.markLastContacted(id: id, lastContacted: fromDate)
             self.tableView.reloadData()
@@ -118,7 +125,7 @@ extension ContactsListController {
         self.tableView.reloadData()
     }
 
-    
+
 }
 
 extension ContactsListController {
