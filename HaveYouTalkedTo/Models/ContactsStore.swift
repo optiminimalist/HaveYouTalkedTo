@@ -157,26 +157,29 @@ class ContactsStore {
     }
     
     private func fetchContactsFromCNContacts() -> [CNContact] {
-        let keysToFetch: [CNKeyDescriptor] = [ CNContactViewController.descriptorForRequiredKeys()]
-        let req = CNContactFetchRequest(keysToFetch: keysToFetch)
+        
+        var contacts: Set<CNContact> = []
 
-        var contacts: [CNContact] = []
-        try! CNContactStore().enumerateContacts(with: req) {
-            contact, stop in
-            if contact.givenName.isEmpty || contact.familyName.isEmpty {
-
-            } else {
-                contacts.append(contact)
-            }
+        for group in self.allGroups {
+            let contactsByGroup = self.fetchContactsFromCNContacts(byGroup: group)
+            contacts = contacts.union(contactsByGroup)
         }
 
-        return contacts
+        return Array(contacts)
     }
     
     private func fetchContactGroupsFromCNContacts() -> [CNGroup] {
         let groups = try! CNContactStore().groups(matching: nil)
 
         return groups
+    }
+    
+    private func fetchContactsFromCNContacts(byGroup: CNGroup) -> [CNContact] {
+        let predicate = CNContact.predicateForContactsInGroup(withIdentifier: byGroup.identifier)
+        let keysToFetch: [CNKeyDescriptor] = [ CNContactViewController.descriptorForRequiredKeys()]
+        
+
+        return try! CNContactStore().unifiedContacts(matching: predicate, keysToFetch: keysToFetch)
     }
     
 
