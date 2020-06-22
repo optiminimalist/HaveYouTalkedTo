@@ -73,7 +73,7 @@ class FilterViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FilterViewCell", for: indexPath)
         
         if indexPath.section == 1 {
-            cell.textLabel?.text = "Show Ungroupedq"
+            cell.textLabel?.text = "Show Ungrouped"
             if self.store.getUngroupedEnabled() {
                 tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
             }

@@ -104,29 +104,6 @@ class ContactsListController: UITableViewController {
     
 }
 
-extension ContactsListController {
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let contact = self.store.contactsByLastContacted[indexPath.section][indexPath.row]
-        let previousContact = contact.lastContactDate
-        self.store.markLastContacted(forIndexPath: indexPath)
-        let currentContact = contact.lastContactDate
-
-        self.contactDidChange(id: contact.id, fromDate: previousContact, toDate: currentContact)
-    }
-
-    func contactDidChange(id: String, fromDate: Date?, toDate: Date?) {
-
-        undoManager?.registerUndo(withTarget: self) { target in
-            self.store.markLastContacted(id: id, lastContacted: fromDate)
-            self.tableView.reloadData()
-            self.contactDidChange(id: id, fromDate: toDate, toDate: fromDate)
-        }
-
-        self.tableView.reloadData()
-    }
-
-
-}
 
 extension ContactsListController {
     private func askUserForContactsPermission(
@@ -153,4 +130,57 @@ extension ContactsListController {
               }
           }
       }
+}
+
+extension ContactsListController {
+    
+override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let markContactedTodayAction = UIContextualAction(style: .destructive, title: "Contacted Today") { (_, _, completionHandler) in
+        let contact = self.store.contactsByLastContacted[indexPath.section][indexPath.row]
+         let previousContact = contact.lastContactDate
+         self.store.markLastContacted(forIndexPath: indexPath)
+         let currentContact = contact.lastContactDate
+
+         self.contactDidChange(id: contact.id, fromDate: previousContact, toDate: currentContact)
+         completionHandler(true)
+            
+      }
+    
+ 
+    
+      return UISwipeActionsConfiguration(actions: [markContactedTodayAction])
+
+    
+  }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+     
+      
+      let markContactedAction = UIContextualAction(style: .normal, title: "Contacted at ...") { (_, _, completionHandler) in
+        self.performSegue(withIdentifier: "ShowDatePicker" , sender: nil)
+
+        }
+      
+      
+        return UISwipeActionsConfiguration(actions: [markContactedAction])
+
+      
+    }
+
+    func contactDidChange(id: String, fromDate: Date?, toDate: Date?) {
+
+        undoManager?.registerUndo(withTarget: self) { target in
+            self.store.markLastContacted(id: id, lastContacted: fromDate)
+            self.tableView.reloadData()
+            self.contactDidChange(id: id, fromDate: toDate, toDate: fromDate)
+        }
+
+        self.tableView.reloadData()
+    }
+
+
+}
+
+protocol ModalDelegate {
+    func changeValue(value: String)
 }
