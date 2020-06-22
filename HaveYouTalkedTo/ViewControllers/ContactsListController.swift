@@ -11,21 +11,10 @@ import Contacts
 
 class ContactsListController: UITableViewController {
     var store: ContactsStore!
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactsListCell", for: indexPath) as! ContactsListCell
-        
-        let contact = self.store.contactsByLastContacted[indexPath.section][indexPath.row]
-        cell.lastNameLabel.text = contact.lastName
-        cell.firstNameLabel.text = contact.firstName
-        cell.lastContactedLabel.text = formatDate(contact.lastContactDate) ?? "never"
-
-        return cell
-    }
-    
+   
     
     @IBAction func randomizeButtonClicked(_ sender: UIButton) {
-        self.store.randomizeDates()
+//        self.store.randomizeDates()
         self.tableView.reloadData()
 
     }
@@ -36,7 +25,7 @@ class ContactsListController: UITableViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
 
         self.askUserForContactsPermission(onCompletion: self.store.fetchContacts)
-        
+                
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 65
         
@@ -46,10 +35,16 @@ class ContactsListController: UITableViewController {
             name: NSNotification.Name.CNContactStoreDidChange,
             object: nil
         )
+        
+
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         becomeFirstResponder()
+        
+        // TODO don't
+        self.tableView.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -71,8 +66,7 @@ class ContactsListController: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if self.store.allContacts.count == 0 {
-
+        if self.store.getAllContacts().count == 0 {
                self.tableView.setEmptyMessage("My Message")
            } else {
                self.tableView.restore()
@@ -81,41 +75,33 @@ class ContactsListController: UITableViewController {
      }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.store.getNumberOfContacts(forSection: section)
+        return self.store.contactsByLastContacted[section].count
+        
+
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         self.store.getSectionHeading(forSection: section)
     }
     
+    
+   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       let cell = tableView.dequeueReusableCell(withIdentifier: "ContactsListCell", for: indexPath) as! ContactsListCell
+       
+       let contact = self.store.contactsByLastContacted[indexPath.section][indexPath.row]
+       cell.lastNameLabel.text = contact.lastName
+       cell.firstNameLabel.text = contact.firstName
+       cell.lastContactedLabel.text = formatDate(contact.lastContactDate) ?? "never"
+
+       return cell
+   }
+   
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         self.store.sectionShort
     }
     
-    private func askUserForContactsPermission(
-        onCompletion:@escaping ()->Void
-    ) {
-        let store = CNContactStore()
-        
-        store.requestAccess(for: .contacts) { (granted: Bool, err: Error?) in
-            if let err = err {
-                print("Failed to request access with error \(err)")
-                return
-            }
-
-            if granted {
-                print("User has granted permission for contacts")
-
-                onCompletion()
-                    
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            } else {
-                print("Access denied..")
-            }
-        }
-    }
+  
+    
 }
 
 extension ContactsListController {
@@ -124,13 +110,12 @@ extension ContactsListController {
         let previousContact = contact.lastContactDate
         self.store.markLastContacted(forIndexPath: indexPath)
         let currentContact = contact.lastContactDate
-        
-        self.contactDidChange(id: contact.id, fromDate: previousContact, toDate: currentContact)
 
+        self.contactDidChange(id: contact.id, fromDate: previousContact, toDate: currentContact)
     }
-    
+
     func contactDidChange(id: String, fromDate: Date?, toDate: Date?) {
-        
+
         undoManager?.registerUndo(withTarget: self) { target in
             self.store.markLastContacted(id: id, lastContacted: fromDate)
             self.tableView.reloadData()
@@ -140,4 +125,32 @@ extension ContactsListController {
         self.tableView.reloadData()
     }
 
+
+}
+
+extension ContactsListController {
+    private func askUserForContactsPermission(
+          onCompletion:@escaping ()->Void
+      ) {
+          let store = CNContactStore()
+          
+          store.requestAccess(for: .contacts) { (granted: Bool, err: Error?) in
+              if let err = err {
+                  print("Failed to request access with error \(err)")
+                  return
+              }
+
+              if granted {
+                  print("User has granted permission for contacts")
+
+                  onCompletion()
+                      
+                  DispatchQueue.main.async {
+                      self.tableView.reloadData()
+                  }
+              } else {
+                  print("Access denied..")
+              }
+          }
+      }
 }

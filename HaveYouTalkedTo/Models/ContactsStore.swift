@@ -11,9 +11,12 @@ import CoreData
 import ContactsUI
 
 class ContactsStore {
+    private var allContactsByID = [String: Contact]()
     
-    var allContacts = [Contact]()
-    var allContactsByID = [String: Contact]()
+    private var allGroups = [CNGroup]()
+    private var allEnabledGroups = [Bool]()
+    private var ungroupedEnabled = true
+    
     private let sectionHeadings = ["> 6 months ago", "> 3 months ago", "< a month ago", "< a week ago", "yesterday", "today"]
     let sectionShort = [">6m", ">3m", "<1m", "<1w", "<1d", "0d"]
     private let sectionThresholds: [Date] = [Date.from(0000, 01, 01)!, Date().changeDays(by: -90), Date().changeDays(by: -30), Date().changeDays(by: -7), Date().changeDays(by: -1), Date().stripTime()]
@@ -39,43 +42,82 @@ class ContactsStore {
     }
     
     func fetchContacts() {
-        let cnContacts = self.fetchContactsFromCNContacts()
-        self.allContacts = cnContacts.map(enrichCNContactWithPeristedContact(_:)).sorted()
-        self.allContactsByID = Dictionary(uniqueKeysWithValues: self.allContacts.map { ($0.id, $0) })
+        // replace with dictionary
+        self.allGroups = self.fetchContactGroupsFromCNContacts().sorted(by: {$0.name <= $1.name})
+        self.allEnabledGroups = self.allGroups.map({_ in true})
+        assert(self.allEnabledGroups.count == self.allGroups.count)
+        
+        let cnContacts = self.fetchAllCNContacts()
+        let allContacts: [Contact] = cnContacts.map {
+            enrichCNContactWithPeristedContact($0, Array($1))
+        }.sorted()
+        self.allContactsByID = Dictionary(uniqueKeysWithValues: allContacts.map { ($0.id, $0) })
 
         self.savePersistentContext()
         self.organizeLists()
-        
-//        //todo remove
-//        self.randomizeDates()
-
     }
     
     
-    // TODO delete
-    func randomizeDates() {
-        for var c in self.allContacts {
-            c.lastContactDate = generateRandomDate(daysBack: 180)
-        }
-        
-        self.savePersistentContext()
-        self.organizeLists()
-    }
+//    // TODO delete
+//    func randomizeDates() {
+//        for var c in self.allContacts {
+//            c.lastContactDate = generateRandomDate(daysBack: 180)
+//        }
+//        
+//        self.savePersistentContext()
+//        self.organizeLists()
+//    }
     
     func getNumberOfSectionsForContacts() -> Int {
         return self.contactsByLastContacted.count
     }
     
-    func getNumberOfContacts(forSection: Int) -> Int {
-        return self.contactsByLastContacted[forSection].count
+    func getContacts(forSection: Int) -> [Contact] {
+        return self.contactsByLastContacted[forSection]
     }
     
     func getSectionHeading(forSection: Int) -> String {
         return self.sectionHeadings[forSection]
     }
     
+    func getAllGroups() -> [CNGroup] {
+        self.allGroups
+    }
+    
+    func getAllEnabledGroups() -> [Bool] {
+        self.allEnabledGroups
+    }
+    
+    func getUngroupedEnabled() -> Bool {
+        self.ungroupedEnabled
+      }
+      
+    
+    func setGroupEnabled(id: Int, value: Bool){
+        self.allEnabledGroups[id] = value
+        self.organizeLists()
+    }
+    
+    func setUngroupedEnabled(value: Bool) {
+        self.ungroupedEnabled = value
+        self.organizeLists()
+    }
+    
+    func getAllContacts() -> [Contact] {
+        allContactsByID.values.map({$0})
+    }
+    
     private func organizeLists() {
-        self.allContacts = self.allContacts.sorted()
+        let allContacts = filterByGroups(contacts: self.getAllContacts().sorted())
+        
+//        let filteredContacts = self.allContacts.filter(
+//        {
+//            for (idx, elm) in self.allGroups.enumerated(){
+//                if $0.cnContact.
+//            }
+//            $0 == $0
+//        }
+//        )
         
         
         // instantiate contactsByLastContacted
@@ -85,7 +127,7 @@ class ContactsStore {
         }
         
         // iterate over all contacts and assign them to their bucket
-        for c in self.allContacts {
+        for c in allContacts {
             if let d = c.lastContactDate {
                 for (idx, element) in self.sectionThresholds.enumerated().reversed() {
                    if d >= element {
@@ -98,11 +140,14 @@ class ContactsStore {
                 self.contactsByLastContacted[0].append(c)
             }
         }
+        
+        print(self.getAllContacts().count)
+        print(allContacts.count)
     }
     
-    private func enrichCNContactWithPeristedContact(_ contact: CNContact) -> Contact {
+    private func enrichCNContactWithPeristedContact(_ contact: CNContact, _ groups: [CNGroup]) -> Contact {
         let fetchedLastContact = fetchOrCreatePersistedContact(id: contact.identifier)
-        return Contact(id: contact.identifier, firstName: contact.givenName, lastName: contact.familyName, persistedContact: fetchedLastContact, cnContact: contact)
+        return Contact(id: contact.identifier, firstName: contact.givenName, lastName: contact.familyName, persistedContact: fetchedLastContact, cnContact: contact, cnGroups: groups)
     }
     
     private func fetchOrCreatePersistedContact(id: String) -> PersistedContact {
@@ -128,6 +173,47 @@ class ContactsStore {
         return newContact
     }
     
+    private func fetchAllCNContacts() -> [CNContact: Set<CNGroup>] {
+        var contactsWithGroups: [CNContact: Set<CNGroup>] = [:]
+
+        for group in self.allGroups {
+            let contactsByGroup = self.fetchContactsFromCNContacts(byGroup: group)
+            
+            for contact in contactsByGroup {
+                if contactsWithGroups[contact] == nil {
+                    contactsWithGroups[contact] = []
+                }
+                contactsWithGroups[contact] = contactsWithGroups[contact]!.union([group])
+
+            }
+            
+        }
+        
+        // contacts without groups
+        for contact in self.fetchContactsFromCNContacts() {
+            if contactsWithGroups[contact] == nil {
+                contactsWithGroups[contact] = []
+            }
+        }
+
+
+        return contactsWithGroups
+    }
+    
+    private func fetchContactGroupsFromCNContacts() -> [CNGroup] {
+        let groups = try! CNContactStore().groups(matching: nil)
+
+        return groups
+    }
+    
+    private func fetchContactsFromCNContacts(byGroup: CNGroup) -> [CNContact] {
+        let predicate = CNContact.predicateForContactsInGroup(withIdentifier: byGroup.identifier)
+        let keysToFetch: [CNKeyDescriptor] = [ CNContactViewController.descriptorForRequiredKeys()]
+        
+
+        return try! CNContactStore().unifiedContacts(matching: predicate, keysToFetch: keysToFetch)
+    }
+    
     private func fetchContactsFromCNContacts() -> [CNContact] {
         let keysToFetch: [CNKeyDescriptor] = [ CNContactViewController.descriptorForRequiredKeys()]
         let req = CNContactFetchRequest(keysToFetch: keysToFetch)
@@ -144,58 +230,48 @@ class ContactsStore {
 
         return contacts
     }
-       //TODO should this be here?
-       private func savePersistentContext() {
-           do {
-              try context.save()
 
-              } catch {
-                  // TODO Error Handling
-                  print("Error")
-              }
-       }
+    private func filterByGroups(contacts: [Contact]) -> [Contact] {
+          
+        let groups: [CNGroup] = zip(self.getAllGroups(), self.getAllEnabledGroups()).filter {
+              $0.1
+          }.map {
+              $0.0
+          }
+          
+      let filteredContacts = contacts.filter {
+        if $0.cnGroups.count == 0 {
+            return self.ungroupedEnabled
+        }
+          for filterGroup in groups {
+
+           
+            for cnGroup in $0.cnGroups {
+                if filterGroup == cnGroup {
+                    return true
+                }
+            }
+          }
+          
+          return false
+      }
+        
+    return filteredContacts
+  }
+    
+    
+
+   //TODO should this be here?
+   private func savePersistentContext() {
+       do {
+          try context.save()
+
+          } catch {
+              // TODO Error Handling
+              print("Error")
+          }
+   }
     
 
     
 }
-//
-//class ContactsStore {
-////    var allContacts = [String: Contact]()
-//    var sortedContacts = [Contact]()
-//
-//    init() {
-//        self.sortedContacts = self.loadAllContacts().sorted()
-//    }
-//
-//    func savePersistentContext() {
-//        do {
-//           try context.save()
-//
-//           } catch {
-//               // Error Handling
-//               print("Error")
-//           }
-//    }
-//
-
-//
-//    func loadAllContacts() -> [Contact] {
-//        return self.fetchContactsFromCNContacts().map { parseContact($0) }
-////               .reduce(into: [String: Contact]()) {
-////                   $0[$1.id] = $1
-////               }
-//
-//    }
-//
-//
-//
-//    private func parseContact(_ contact: CNContact) -> Contact {
-//        let fetchedLastContact = fetchPersistedContactFromCoreData(id: contact.identifier)
-//
-//        return Contact(id: contact.identifier, firstName: contact.givenName, lastName: contact.familyName, persistedContact: fetchedLastContact, cnContact: contact)
-//    }
-//
-//
-//
-//
-//}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8Ec-N9-vQa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qtw-ah-eM5">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -66,13 +66,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="All Contacts" id="KSu-lC-TyP">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="7gw-k0-50b">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JR8-Gj-HIG">
-                                <rect key="frame" x="16" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Filters"/>
-                            </button>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="8qk-yA-HDb">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="E2b-MN-bik">
                                 <rect key="frame" x="283" y="7" width="76" height="30"/>
@@ -87,12 +80,53 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k1Z-Jh-8SP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="196" y="137.18140929535232"/>
+            <point key="canvasLocation" x="1135.2" y="137.18140929535232"/>
+        </scene>
+        <!--Filter Settings-->
+        <scene sceneID="Mhl-GJ-wvW">
+            <objects>
+                <tableViewController id="qie-tQ-zAf" customClass="FilterViewController" customModule="HaveYouTalkedTo" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="LxX-B7-e5N">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="separatorColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="FilterViewCell" textLabel="S1e-nB-K9Z" style="IBUITableViewCellStyleDefault" id="Bxc-Q6-A8b">
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bxc-Q6-A8b" id="CGJ-Qb-lUw">
+                                    <rect key="frame" x="0.0" y="0.0" width="335" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="S1e-nB-K9Z">
+                                            <rect key="frame" x="16" y="0.0" width="311" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="qie-tQ-zAf" id="0jB-A7-qdP"/>
+                            <outlet property="delegate" destination="qie-tQ-zAf" id="PbP-rp-DHV"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Filter Settings" id="ypF-0Z-RPg"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5AV-Df-QTf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2060" y="897.30134932533736"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="762-lD-cE4">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8Ec-N9-vQa" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="contacts" id="aVm-uN-SYj"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6pg-qx-ZtR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -105,7 +139,48 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tcZ-4S-7mq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-743.20000000000005" y="137.18140929535232"/>
+            <point key="canvasLocation" x="196" y="137.18140929535232"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="MTO-Oz-Z7u">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="qtw-ah-eM5" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HVO-iT-IfZ">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="8Ec-N9-vQa" kind="relationship" relationship="viewControllers" id="Lrw-AG-x2u"/>
+                        <segue destination="tPQ-i4-JNG" kind="relationship" relationship="viewControllers" id="klC-m0-0bL"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NZe-zB-OgA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-743.20000000000005" y="517.6911544227886"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="gOA-Os-AGr">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tPQ-i4-JNG" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" selectedImage="gear" id="jxo-j7-8Fb"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="euU-2v-XXF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="qie-tQ-zAf" kind="relationship" relationship="rootViewController" id="amn-ol-qP6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0UK-Zy-5iO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1120.8" y="897.30134932533736"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="gear" catalog="system" width="128" height="119"/>
+    </resources>
 </document>

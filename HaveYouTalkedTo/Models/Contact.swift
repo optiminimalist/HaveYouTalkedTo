@@ -44,6 +44,7 @@ struct Contact: Comparable {
     }
     var persistedContact: PersistedContact?
     var cnContact: CNContact?
+    var cnGroups: [CNGroup]
     
     func setLastContactDate(_ d: Date) {
         self.persistedContact?.lastContactDate = d

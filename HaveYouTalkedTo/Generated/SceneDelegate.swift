@@ -22,11 +22,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let contactsStore = ContactsStore()
         contactsStore.context = context
+        
+        guard let rvc = window!.rootViewController as? UITabBarController else {
+            fatalError("expected TabBarController as first view controller")
+        }
 
-        let navController = window!.rootViewController as! UINavigationController
-        let contactsListController = navController.topViewController as! ContactsListController
-
-        contactsListController.store = contactsStore
+        rvc.children.forEach { viewController in
+            let injector = { (viewController: AnyObject) in
+                if let tmp = viewController as? ContactsListController {
+                    tmp.store = contactsStore
+                }
+                
+                if let tmp = viewController as? FilterViewController {
+                    tmp.store = contactsStore
+                }
+            }
+            
+            if let tmp = viewController as? UINavigationController {
+                injector(tmp.topViewController!)
+            }
+            else {
+                injector(viewController)
+            }
+        }
 
     }
 
