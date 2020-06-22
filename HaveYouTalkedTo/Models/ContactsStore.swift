@@ -15,6 +15,7 @@ class ContactsStore {
     
     private var allGroups = [CNGroup]()
     private var allEnabledGroups = [Bool]()
+    private var ungroupedEnabled = true
     
     private let sectionHeadings = ["> 6 months ago", "> 3 months ago", "< a month ago", "< a week ago", "yesterday", "today"]
     let sectionShort = [">6m", ">3m", "<1m", "<1w", "<1d", "0d"]
@@ -44,7 +45,7 @@ class ContactsStore {
         // replace with dictionary
         self.allGroups = self.fetchContactGroupsFromCNContacts().sorted(by: {$0.name <= $1.name})
         self.allEnabledGroups = self.allGroups.map({_ in true})
-        print(self.allEnabledGroups.count == self.allGroups.count)
+        assert(self.allEnabledGroups.count == self.allGroups.count)
         
         let cnContacts = self.fetchAllCNContacts()
         let allContacts: [Contact] = cnContacts.map {
@@ -87,8 +88,18 @@ class ContactsStore {
         self.allEnabledGroups
     }
     
+    func getUngroupedEnabled() -> Bool {
+        self.ungroupedEnabled
+      }
+      
+    
     func setGroupEnabled(id: Int, value: Bool){
         self.allEnabledGroups[id] = value
+        self.organizeLists()
+    }
+    
+    func setUngroupedEnabled(value: Bool) {
+        self.ungroupedEnabled = value
         self.organizeLists()
     }
     
@@ -130,7 +141,8 @@ class ContactsStore {
             }
         }
         
-        print(allContacts.map({$0.firstName}))
+        print(self.getAllContacts().count)
+        print(allContacts.count)
     }
     
     private func enrichCNContactWithPeristedContact(_ contact: CNContact, _ groups: [CNGroup]) -> Contact {
@@ -227,18 +239,25 @@ class ContactsStore {
               $0.0
           }
           
-          return contacts.filter {
-              for filterGroup in groups {
-                  for cnGroup in $0.cnGroups {
-                      if filterGroup == cnGroup {
-                          return true
-                      }
-                  }
-              }
-              
-              return false
+      let filteredContacts = contacts.filter {
+        if $0.cnGroups.count == 0 {
+            return self.ungroupedEnabled
+        }
+          for filterGroup in groups {
+
+           
+            for cnGroup in $0.cnGroups {
+                if filterGroup == cnGroup {
+                    return true
+                }
+            }
           }
+          
+          return false
       }
+        
+    return filteredContacts
+  }
     
     
 
