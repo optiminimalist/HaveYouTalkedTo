@@ -26,20 +26,18 @@ class ContactsStore {
     
     var context: NSManagedObjectContext!
 
-    
-    func markLastContacted(forIndexPath indexPath: IndexPath) {
-        self.contactsByLastContacted[indexPath.section][indexPath.row].setLastContactDate(Date().stripTime())
-        
-        self.savePersistentContext()
-        self.organizeLists()
+
+    func markLastContacted(forIndexPath indexPath: IndexPath, lastContacted: Date?) {
+        let identifier = self.contactsByLastContacted[indexPath.section][indexPath.row].id
+        self.markLastContacted(id: identifier, lastContacted: lastContacted)
     }
     
     func markLastContacted(id: String, lastContacted: Date?) {
-        self.allContactsByID[id]?.lastContactDate = lastContacted
-        
-        self.savePersistentContext()
-        self.organizeLists()
-    }
+           self.allContactsByID[id]?.lastContactDate = lastContacted
+           
+           self.savePersistentContext()
+           self.organizeLists()
+       }
     
     func fetchContacts() {
         // replace with dictionary
