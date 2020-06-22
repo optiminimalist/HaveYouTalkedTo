@@ -78,9 +78,6 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="nRX-Bl-0ck" kind="presentation" identifier="ShowDatePicker" id="7xR-Sk-AHh"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k1Z-Jh-8SP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -90,16 +87,16 @@
         <scene sceneID="8wl-Jg-5Ja">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eyw-5q-nQT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <viewController id="nRX-Bl-0ck" customClass="DatePickerViewController" customModule="HaveYouTalkedTo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DatePickerViewController" id="nRX-Bl-0ck" customClass="DatePickerViewController" customModule="HaveYouTalkedTo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gb9-Tv-9Ki">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="DEI-NS-a9c">
-                                <rect key="frame" x="0.0" y="216" width="375" height="216"/>
+                                <rect key="frame" x="0.0" y="225.5" width="375" height="216"/>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GIr-Nc-TCB">
-                                <rect key="frame" x="16" y="441.5" width="343" height="30"/>
+                                <rect key="frame" x="16" y="451.5" width="343" height="30"/>
                                 <state key="normal" title="Mark Contacted"/>
                                 <connections>
                                     <action selector="markContactedPressed:" destination="nRX-Bl-0ck" eventType="touchUpInside" id="J1T-y3-P28"/>
@@ -127,6 +124,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5z0-V8-QMt"/>
                     </view>
+                    <connections>
+                        <outlet property="datePicker" destination="DEI-NS-a9c" id="ucH-XI-cY0"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="2052" y="137.18140929535232"/>

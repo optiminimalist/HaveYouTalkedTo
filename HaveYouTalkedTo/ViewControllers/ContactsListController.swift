@@ -9,8 +9,11 @@
 import UIKit
 import Contacts
 
-class ContactsListController: UITableViewController {
+class ContactsListController: UITableViewController, DatePickerViewDelegate {
+  
+    
     var store: ContactsStore!
+    var selectedIndexPath: IndexPath!
    
     
     @IBAction func randomizeButtonClicked(_ sender: UIButton) {
@@ -134,20 +137,22 @@ extension ContactsListController {
 
 extension ContactsListController {
     
+    func processMarkLastContacted(indexPath: IndexPath, lastContacted: Date?) {
+        let contact = self.store.contactsByLastContacted[indexPath.section][indexPath.row]
+        let previousContact = contact.lastContactDate
+        self.store.markLastContacted(forIndexPath: indexPath, lastContacted: (lastContacted ?? Date()).stripTime())
+        let currentContact = contact.lastContactDate
+
+        self.contactDidChange(id: contact.id, fromDate: previousContact, toDate: currentContact)
+    }
+    
 override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
     let markContactedTodayAction = UIContextualAction(style: .destructive, title: "Contacted Today") { (_, _, completionHandler) in
-        let contact = self.store.contactsByLastContacted[indexPath.section][indexPath.row]
-         let previousContact = contact.lastContactDate
-         self.store.markLastContacted(forIndexPath: indexPath)
-         let currentContact = contact.lastContactDate
-
-         self.contactDidChange(id: contact.id, fromDate: previousContact, toDate: currentContact)
-         completionHandler(true)
+        
+        self.processMarkLastContacted(indexPath: indexPath, lastContacted: Date())
+        completionHandler(true)
             
       }
-    
- 
-    
       return UISwipeActionsConfiguration(actions: [markContactedTodayAction])
 
     
@@ -157,9 +162,19 @@ override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurat
      
       
       let markContactedAction = UIContextualAction(style: .normal, title: "Contacted at ...") { (_, _, completionHandler) in
-        self.performSegue(withIdentifier: "ShowDatePicker" , sender: nil)
+        
+        self.selectedIndexPath = indexPath
+        
+        let presentedVC = self.storyboard?.instantiateViewController(withIdentifier: "DatePickerViewController") as! DatePickerViewController
+        presentedVC.delegate = self
+        
+        self.present(presentedVC, animated: true, completion: nil)
+
+        completionHandler(true)
 
         }
+        
+        markContactedAction.backgroundColor = .orange
       
       
         return UISwipeActionsConfiguration(actions: [markContactedAction])
@@ -177,10 +192,16 @@ override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurat
 
         self.tableView.reloadData()
     }
+    
 
+    
+    func getSelectedIndexPath() -> IndexPath {
+        return self.selectedIndexPath
+    }
 
 }
 
-protocol ModalDelegate {
-    func changeValue(value: String)
+protocol DatePickerViewDelegate {
+    func processMarkLastContacted(indexPath: IndexPath, lastContacted: Date?)
+    func getSelectedIndexPath() -> IndexPath
 }
