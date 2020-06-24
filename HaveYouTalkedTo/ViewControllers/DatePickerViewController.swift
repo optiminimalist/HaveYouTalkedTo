@@ -9,7 +9,7 @@
 import UIKit
 
 class DatePickerViewController: UIViewController {
-    var delegate: DatePickerViewDelegate?
+    weak var delegate: DatePickerViewDelegate?
 
     @IBAction func cancelPressed(_ sender: UIButton) {
         self.dismiss(animated: true)
@@ -20,11 +20,10 @@ class DatePickerViewController: UIViewController {
             print(delegate.getSelectedIndexPath())
             delegate.processMarkLastContacted(indexPath: delegate.getSelectedIndexPath(), lastContacted: datePicker.date)
          }
-        
+
         self.dismiss(animated: true)
     }
-    
-    @IBOutlet var datePicker: UIDatePicker!
-    
-}
 
+    @IBOutlet var datePicker: UIDatePicker!
+
+}

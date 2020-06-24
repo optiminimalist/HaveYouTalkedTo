@@ -66,7 +66,6 @@ func generateRandomDate(daysBack: Int) -> Date? {
     return randomDate
 }
 
-
 extension UITableView {
 
     func setEmptyMessage(_ message: String) {
