@@ -16,15 +16,13 @@ struct Contact: Comparable {
             } else {
                 return lhs.lastName < rhs.lastName
             }
-        }
-        else if lhs.lastContactDate != nil {
+        } else if lhs.lastContactDate != nil {
             return false
-        }
-        else {
+        } else {
             return true
         }
     }
-    
+
     var id: String
     var firstName: String
     var lastName: String
@@ -32,12 +30,11 @@ struct Contact: Comparable {
         get {
                 if let contact = self.persistedContact {
                 return contact.lastContactDate
-            }
-            else {
+            } else {
                 return nil
             }
         }
-        
+
         set {
             self.persistedContact?.lastContactDate = newValue
         }
@@ -45,10 +42,9 @@ struct Contact: Comparable {
     var persistedContact: PersistedContact?
     var cnContact: CNContact?
     var cnGroups: [CNGroup]
-    
+
     func setLastContactDate(_ d: Date) {
         self.persistedContact?.lastContactDate = d
     }
-    
-}
 
+}

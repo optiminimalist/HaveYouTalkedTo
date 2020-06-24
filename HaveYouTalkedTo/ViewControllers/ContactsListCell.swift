@@ -12,5 +12,5 @@ class ContactsListCell: UITableViewCell {
     @IBOutlet var lastNameLabel: UILabel!
     @IBOutlet var firstNameLabel: UILabel!
     @IBOutlet var lastContactedLabel: UILabel!
-    
+
 }
