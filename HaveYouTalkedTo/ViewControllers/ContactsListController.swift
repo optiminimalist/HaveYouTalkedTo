@@ -137,14 +137,21 @@ extension ContactsListController {
         self.contactDidChange(id: contact.id, fromDate: previousContact, toDate: currentContact)
     }
 
-override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    let markContactedTodayAction = UIContextualAction(style: .destructive, title: "Contacted Today") { (_, _, completionHandler) in
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let markContactedTodayAction = UIContextualAction(style: .destructive, title: "Contacted Today") { (_, _, completionHandler) in
 
-        self.processMarkLastContacted(indexPath: indexPath, lastContacted: Date())
-        completionHandler(true)
+            self.processMarkLastContacted(indexPath: indexPath, lastContacted: Date())
+            completionHandler(true)
 
-      }
-      return UISwipeActionsConfiguration(actions: [markContactedTodayAction])
+          }
+          return UISwipeActionsConfiguration(actions: [markContactedTodayAction])
+        
+    // TODO implement tableview click
+//        let presentedVC = self.storyboard?.instantiateViewController(withIdentifier: "DatePickerViewController") as! DatePickerViewController
+//        presentedVC.delegate = self
+//
+//        self.present(presentedVC, animated: true, completion: nil)
+
 
   }
 

@@ -43,6 +43,13 @@ class ContactsStore {
      */
     func markLastContacted(id: String, lastContacted: Date?) {
         self.allContactsByID[id]?.lastContactDate = lastContacted
+        let persistedContact = self.allContactsByID[id]?.persistedContact
+
+        let newContactEntry = ContactEntry(context: context)
+        newContactEntry.lastContactDate = lastContacted
+        newContactEntry.persistedContact = persistedContact
+
+        print(persistedContact?.contactEntries?.count)
 
         self.savePersistentContext()
         self.updateContactsByLastContacted()
@@ -99,7 +106,7 @@ class ContactsStore {
         self.updateContactsByLastContacted()
     }
 
-    /* Contacts*/
+    /* Contacts */
     func getContacts(forSection: Int) -> [Contact] {
         return self.contactsByLastContacted[forSection]
     }
@@ -107,6 +114,8 @@ class ContactsStore {
     func getAllContacts() -> [Contact] {
         allContactsByID.values.map({$0})
     }
+
+    /* Handle Contact Entries */
 
     /**
      Called whenever data changes: it updates contactsByLastContacted
