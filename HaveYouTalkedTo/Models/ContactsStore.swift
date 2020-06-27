@@ -69,6 +69,7 @@ class ContactsStore {
 
         self.savePersistentContext()
         self.updateContactsByLastContacted()
+
     }
 
     /* Sections */
@@ -109,7 +110,7 @@ class ContactsStore {
     }
 
     func getAllContacts() -> [Contact] {
-        allContactsByID.values.map({$0})
+        return self.contactsByLastContacted.flatMap({$0}).reversed()
     }
 
     func getContact(forIndexPath: IndexPath) -> Contact {
@@ -209,7 +210,7 @@ class ContactsStore {
   }
 
    //TODO should this be here?
-func savePersistentContext() {
+private func savePersistentContext() {
        do {
           try context.save()
 
@@ -280,5 +281,12 @@ extension ContactsStore {
         }
 
         return contacts
+    }
+}
+
+// Highlights
+extension ContactsStore {
+    func getHighlights() -> [Contact] {
+        return Array(self.getAllContacts().prefix(5))
     }
 }

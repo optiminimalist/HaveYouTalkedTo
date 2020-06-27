@@ -39,6 +39,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 if let tmp = viewController as? ContactDetailsTableViewController {
                     tmp.store = contactsStore
                 }
+
+                if let tmp = viewController as? ContactHighlightsViewController {
+                    tmp.store = contactsStore
+                }
             }
 
             if let tmp = viewController as? UINavigationController {

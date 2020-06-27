@@ -1,33 +1,41 @@
 //
-//  ContactDetailsTableViewController.swift
+//  ContactHighlightsViewController.swift
 //  HaveYouTalkedTo
 //
-//  Created by Michael Luckeneder on 6/26/20.
+//  Created by Michael Luckeneder on 6/27/20.
 //  Copyright © 2020 optiminimalist. All rights reserved.
 //
 
 import UIKit
 
-class ContactDetailsTableViewController: UITableViewController {
-
-    var contact: Contact!
+class ContactHighlightsViewController: UITableViewController {
     var store: ContactsStore!
-    var contactEntries: [ContactEntry]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // TODO
+        CNContactManager.askUserForContactsPermission(onCompletion: self.store.fetchContacts)
+        self.tableView.reloadData()
+
         navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = self.contact.firstName + " " + self.contact.lastName
+        self.navigationItem.title = "Today"
+
+        tableView.rowHeight = 100
+//        tableView.estimatedRowHeight = 100
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
 
-        let contactEntries = self.contact.persistedContact?.contactEntries?.allObjects as! [ContactEntry]
-        self.contactEntries = contactEntries.sorted(by: >)
+    // Gets called when any modification is done in iOS contact app
+    @objc private func addressBookDidChange(notification: NSNotification) {
+        // TODO change
+        self.store.fetchContacts()
+        self.tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -39,17 +47,16 @@ class ContactDetailsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.contactEntries.count
+        return self.store.getHighlights().count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ConactDetailViewCell", for: indexPath)
-        if let date = formatDate(self.contactEntries[indexPath.row].lastContactDate) {
-            cell.textLabel?.text = "Contacted on: \(date)"
-        } else {
-            cell.textLabel?.text = "never"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "contactHighlightsCell", for: indexPath) as! ContactHightlightCell
 
-        }
+        let contact = self.store.getHighlights()[indexPath.row]
+        cell.firstNameLabel.text = contact.firstName
+        cell.lastNameLabel.text = contact.lastName
+
         // Configure the cell...
 
         return cell
@@ -63,23 +70,17 @@ class ContactDetailsTableViewController: UITableViewController {
     }
     */
 
+    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            self.contactEntries.remove(at: indexPath.row)
-            self.contact.persistedContact?.contactEntries = NSSet(array: self.contactEntries)
-
-            // TODO don't
-            (UIApplication.shared.delegate as! AppDelegate).saveContext()
             tableView.deleteRows(at: [indexPath], with: .fade)
-
-            NotificationCenter.default.post(name: .didLastContactedChange, object: nil)
-
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }
+        }    
     }
+    */
 
     /*
     // Override to support rearranging the table view.

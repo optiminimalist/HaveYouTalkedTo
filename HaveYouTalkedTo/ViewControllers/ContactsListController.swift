@@ -25,7 +25,9 @@ class ContactsListController: UITableViewController, DatePickerViewDelegate {
 
         navigationController?.navigationBar.prefersLargeTitles = true
 
-        self.askUserForContactsPermission(onCompletion: self.store.fetchContacts)
+        // TODO
+        CNContactManager.askUserForContactsPermission(onCompletion: self.store.fetchContacts)
+        self.tableView.reloadData()
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 65
@@ -36,6 +38,13 @@ class ContactsListController: UITableViewController, DatePickerViewDelegate {
             name: NSNotification.Name.CNContactStoreDidChange,
             object: nil
         )
+
+        NotificationCenter.default.addObserver(
+           self,
+           selector: #selector(addressBookDidChange),
+           name: .didLastContactedChange,
+           object: nil
+       )
 
     }
 
@@ -62,6 +71,8 @@ class ContactsListController: UITableViewController, DatePickerViewDelegate {
     @objc private func addressBookDidChange(notification: NSNotification) {
         self.store.fetchContacts()
         self.tableView.reloadData()
+
+        print("Reloaded")
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -97,33 +108,6 @@ class ContactsListController: UITableViewController, DatePickerViewDelegate {
         self.store.sectionShort
     }
 
-}
-
-extension ContactsListController {
-    private func askUserForContactsPermission(
-          onCompletion:@escaping () -> Void
-      ) {
-          let store = CNContactStore()
-
-          store.requestAccess(for: .contacts) { (granted: Bool, err: Error?) in
-              if let err = err {
-                  print("Failed to request access with error \(err)")
-                  return
-              }
-
-              if granted {
-                  print("User has granted permission for contacts")
-
-                  onCompletion()
-
-                  DispatchQueue.main.async {
-                      self.tableView.reloadData()
-                  }
-              } else {
-                  print("Access denied..")
-              }
-          }
-      }
 }
 
 extension ContactsListController {
@@ -198,4 +182,8 @@ extension ContactsListController {
 protocol DatePickerViewDelegate: class {
     func processMarkLastContacted(indexPath: IndexPath, lastContacted: Date?)
     func getSelectedIndexPath() -> IndexPath
+}
+
+extension Notification.Name {
+    static let didLastContactedChange = Notification.Name("didLastContactedChange")
 }
