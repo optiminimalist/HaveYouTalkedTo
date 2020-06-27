@@ -27,7 +27,6 @@ class ContactDetailsTableViewController: UITableViewController {
          self.navigationItem.rightBarButtonItem = self.editButtonItem
 
         let contactEntries = self.contact.persistedContact?.contactEntries?.allObjects as! [ContactEntry]
-
         self.contactEntries = contactEntries.sorted(by: >)
     }
 
@@ -40,7 +39,7 @@ class ContactDetailsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.contact.persistedContact?.contactEntries?.count ?? 0
+        return self.contactEntries.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,17 +63,20 @@ class ContactDetailsTableViewController: UITableViewController {
     }
     */
 
-    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            self.contactEntries.remove(at: indexPath.row)
+            self.contact.persistedContact?.contactEntries = NSSet(array: self.contactEntries)
+
+            // TODO don't
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
 
     /*
     // Override to support rearranging the table view.

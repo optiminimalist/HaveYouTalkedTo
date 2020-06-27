@@ -42,7 +42,6 @@ class ContactsStore {
      Marks last contacted given id
      */
     func markLastContacted(id: String, lastContacted: Date?) {
-        self.allContactsByID[id]?.lastContactDate = lastContacted
         let persistedContact = self.allContactsByID[id]?.persistedContact
 
         let newContactEntry = ContactEntry(context: context)
@@ -210,7 +209,7 @@ class ContactsStore {
   }
 
    //TODO should this be here?
-   private func savePersistentContext() {
+func savePersistentContext() {
        do {
           try context.save()
 
