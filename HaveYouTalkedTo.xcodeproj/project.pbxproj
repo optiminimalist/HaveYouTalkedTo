@@ -11,6 +11,9 @@
 		4C2717D324A79ABE00782287 /* ContactHighlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2717D224A79ABE00782287 /* ContactHighlightCell.swift */; };
 		4C2717D624A79D0400782287 /* CNContactManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2717D524A79D0400782287 /* CNContactManager.swift */; };
 		4C2717D824A7C20600782287 /* ContactDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2717D724A7C20600782287 /* ContactDetailCell.swift */; };
+		4C2717DB24A7EE7D00782287 /* ContactHighlight+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2717D924A7EE7D00782287 /* ContactHighlight+CoreDataClass.swift */; };
+		4C2717DC24A7EE7D00782287 /* ContactHighlight+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2717DA24A7EE7D00782287 /* ContactHighlight+CoreDataProperties.swift */; };
+		4C2717DE24A7F50B00782287 /* ContactHighlightStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2717DD24A7F50B00782287 /* ContactHighlightStore.swift */; };
 		4C85E15F249D9C73007DB35D /* ContactsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85E15E249D9C73007DB35D /* ContactsStore.swift */; };
 		4C85E161249D9CCF007DB35D /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85E160249D9CCF007DB35D /* Contact.swift */; };
 		4C85E167249DAAC8007DB35D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85E166249DAAC8007DB35D /* Helpers.swift */; };
@@ -55,6 +58,9 @@
 		4C2717D224A79ABE00782287 /* ContactHighlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactHighlightCell.swift; sourceTree = "<group>"; };
 		4C2717D524A79D0400782287 /* CNContactManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNContactManager.swift; sourceTree = "<group>"; };
 		4C2717D724A7C20600782287 /* ContactDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailCell.swift; sourceTree = "<group>"; };
+		4C2717D924A7EE7D00782287 /* ContactHighlight+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactHighlight+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4C2717DA24A7EE7D00782287 /* ContactHighlight+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactHighlight+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4C2717DD24A7F50B00782287 /* ContactHighlightStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactHighlightStore.swift; sourceTree = "<group>"; };
 		4C85E15E249D9C73007DB35D /* ContactsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsStore.swift; sourceTree = "<group>"; };
 		4C85E160249D9CCF007DB35D /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		4C85E166249DAAC8007DB35D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
@@ -121,6 +127,7 @@
 			children = (
 				4C85E15E249D9C73007DB35D /* ContactsStore.swift */,
 				4C85E160249D9CCF007DB35D /* Contact.swift */,
+				4C2717DD24A7F50B00782287 /* ContactHighlightStore.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -128,6 +135,8 @@
 		4C874EB1249D74000069FCD3 = {
 			isa = PBXGroup;
 			children = (
+				4C2717D924A7EE7D00782287 /* ContactHighlight+CoreDataClass.swift */,
+				4C2717DA24A7EE7D00782287 /* ContactHighlight+CoreDataProperties.swift */,
 				4CBE8BCB24A710EE00743A7F /* PersistedContact+CoreDataClass.swift */,
 				4CBE8BCC24A710EE00743A7F /* PersistedContact+CoreDataProperties.swift */,
 				4CBE8BCD24A710EE00743A7F /* ContactEntry+CoreDataClass.swift */,
@@ -368,9 +377,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C2717DC24A7EE7D00782287 /* ContactHighlight+CoreDataProperties.swift in Sources */,
 				4C874EC8249D74000069FCD3 /* HaveYouTalkedTo.xcdatamodeld in Sources */,
 				4C2717D124A799AB00782287 /* ContactHighlightsViewController.swift in Sources */,
 				4CBACF0B24A63FA000EC3E4A /* ContactDetailsTableViewController.swift in Sources */,
+				4C2717DB24A7EE7D00782287 /* ContactHighlight+CoreDataClass.swift in Sources */,
 				4CBE8BD124A710EE00743A7F /* ContactEntry+CoreDataClass.swift in Sources */,
 				4CBE8BD224A710EE00743A7F /* ContactEntry+CoreDataProperties.swift in Sources */,
 				4C874EBE249D74000069FCD3 /* AppDelegate.swift in Sources */,
@@ -387,6 +398,7 @@
 				4C2717D624A79D0400782287 /* CNContactManager.swift in Sources */,
 				4CBE8BCF24A710EE00743A7F /* PersistedContact+CoreDataClass.swift in Sources */,
 				4C85E161249D9CCF007DB35D /* Contact.swift in Sources */,
+				4C2717DE24A7F50B00782287 /* ContactHighlightStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

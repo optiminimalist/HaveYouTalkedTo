@@ -119,6 +119,10 @@ class ContactsStore {
         return self.getContacts(forSection: forIndexPath.section)[forIndexPath.row]
     }
 
+    func getContact(byID id: String) -> Contact? {
+        return self.allContactsByID[id]
+    }
+
     /* Handle Contact Entries */
 
     /**
@@ -160,26 +164,34 @@ class ContactsStore {
      Attempts to load contact from Core Data or creates a new one
      */
     private func fetchOrCreatePersistedContact(id: String) -> PersistedContact {
-        // TODO: optimize
-        let request = NSFetchRequest<PersistedContact>(entityName: "PersistedContact")
-        request.predicate = NSPredicate(format: "id = %@", id)
-        do {
-            let result = try context.fetch(request)
-            assert(result.count < 2) // we shouldn't have any duplicates in CD
-
-            if let c = result.first {
-                return c
-            }
-
-        } catch {
-            // TODO
-            print(error)
+        if let persistedContact = self.fetchPersistedContact(id: id) {
+            return persistedContact
+        } else {
+            let newContact = PersistedContact(context: context)
+            newContact.id = id
+            newContact.lastContactDate = nil
+            return newContact
         }
+    }
 
-        let newContact = PersistedContact(context: context)
-        newContact.id = id
-        newContact.lastContactDate = nil
-        return newContact
+    private func fetchPersistedContact(id: String) -> PersistedContact? {
+       // TODO: optimize
+       let request = NSFetchRequest<PersistedContact>(entityName: "PersistedContact")
+       request.predicate = NSPredicate(format: "id = %@", id)
+       do {
+           let result = try context.fetch(request)
+           assert(result.count < 2) // we shouldn't have any duplicates in CD
+
+           if let c = result.first {
+               return c
+           }
+
+       } catch {
+           // TODO
+           print(error)
+       }
+
+        return nil
     }
 
     /**
@@ -211,16 +223,16 @@ class ContactsStore {
     return filteredContacts
   }
 
-   //TODO should this be here?
-private func savePersistentContext() {
-       do {
-          try context.save()
+     //TODO should this be here?
+      private func savePersistentContext() {
+           do {
+              try context.save()
 
-          } catch {
-              // TODO Error Handling
-              print("Error")
-          }
-   }
+              } catch {
+                  // TODO Error Handling
+                  print("Error")
+              }
+       }
 
 }
 
@@ -291,4 +303,46 @@ extension ContactsStore {
     func getHighlights() -> [Contact] {
         return Array(self.getAllContacts().prefix(5))
     }
+
+    func generateHighlights() -> [Contact] {
+        // TODO be smarter
+        return Array(self.getAllContacts().prefix(5))
+    }
+
+    func fetchOrCreateHighlights(byDate date: Date) -> [Contact] {
+       let fetchedHighlights = self.fetchHighlights(byDate: date)
+       if fetchedHighlights.count == 0 {
+
+           let highlights = self.generateHighlights()
+           for highlight in highlights {
+               let newContactHighlight = ContactHighlight(context: context)
+               newContactHighlight.highlightDate = date
+               newContactHighlight.id = highlight.id
+           }
+
+           self.savePersistentContext()
+
+          return highlights
+       } else {
+        return fetchedHighlights.map {
+            return self.getContact(byID: $0.id!)!
+        }
+    }
+
+   }
+
+   private func fetchHighlights(byDate date: Date) -> [ContactHighlight] {
+       let request = NSFetchRequest<ContactHighlight>(entityName: "ContactHighlight")
+       request.predicate = NSPredicate(format: "highlightDate = %@", date as NSDate)
+       do {
+           let result = try context.fetch(request)
+
+           return result
+       } catch {
+           // TODO
+           print(error)
+       }
+
+    return []
+   }
 }

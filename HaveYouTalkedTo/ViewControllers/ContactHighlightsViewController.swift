@@ -41,7 +41,7 @@ class ContactHighlightsViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-         if self.store.getHighlights().count == 0 {
+        if self.store.fetchOrCreateHighlights(byDate: Date().stripTime()).count == 0 {
               self.tableView.setEmptyMessage("All Done!")
           } else {
               self.tableView.restore()
@@ -51,13 +51,13 @@ class ContactHighlightsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.store.getHighlights().count
+        return self.store.fetchOrCreateHighlights(byDate: Date().stripTime()).count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "contactHighlightsCell", for: indexPath) as! ContactHightlightCell
 
-        let contact = self.store.getHighlights()[indexPath.row]
+        let contact = self.store.fetchOrCreateHighlights(byDate: Date().stripTime())[indexPath.row]
         cell.firstNameLabel.text = contact.firstName
         cell.lastNameLabel.text = contact.lastName
 
