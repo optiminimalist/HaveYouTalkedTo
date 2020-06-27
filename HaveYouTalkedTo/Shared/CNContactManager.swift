@@ -22,10 +22,6 @@ class CNContactManager {
                   print("User has granted permission for contacts")
 
                   onCompletion()
-
-                  DispatchQueue.main.async {
-
-                  }
               } else {
                   print("Access denied..")
               }

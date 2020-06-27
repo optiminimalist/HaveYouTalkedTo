@@ -43,11 +43,11 @@ class ContactDetailsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ConactDetailViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "contactDetailViewCell", for: indexPath) as! ContactDetailCell
         if let date = formatDate(self.contactEntries[indexPath.row].lastContactDate) {
-            cell.textLabel?.text = "Contacted on: \(date)"
+            cell.contactedOnLabel.text = "\(date)"
         } else {
-            cell.textLabel?.text = "never"
+            cell.contactedOnLabel.text = "never"
 
         }
         // Configure the cell...

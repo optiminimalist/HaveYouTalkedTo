@@ -21,8 +21,8 @@ class ContactHighlightsViewController: UITableViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "Today"
 
-        tableView.rowHeight = 100
-//        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = 80
+        tableView.estimatedRowHeight = 80
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -41,7 +41,11 @@ class ContactHighlightsViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+         if self.store.getHighlights().count == 0 {
+              self.tableView.setEmptyMessage("All Done!")
+          } else {
+              self.tableView.restore()
+          }
         return 1
     }
 
@@ -62,6 +66,26 @@ class ContactHighlightsViewController: UITableViewController {
         return cell
     }
 
+    func processMarkLastContacted(indexPath: IndexPath, lastContacted: Date?) {
+//           let contact = self.store.contactsByLastContacted[indexPath.section][indexPath.row]
+//           let previousContact = contact.lastContactDate
+//           self.store.markLastContacted(forIndexPath: indexPath, lastContacted: (lastContacted ?? Date()).stripTime())
+//           let currentContact = contact.lastContactDate
+//
+//           self.contactDidChange(id: contact.id, fromDate: previousContact, toDate: currentContact)
+       }
+
+   override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+       let markContactedTodayAction = UIContextualAction(style: .normal, title: "Contacted Today") { (_, _, completionHandler) in
+
+           self.processMarkLastContacted(indexPath: indexPath, lastContacted: Date())
+           completionHandler(true)
+
+         }
+
+         markContactedTodayAction.backgroundColor = .systemGreen
+         return UISwipeActionsConfiguration(actions: [markContactedTodayAction])
+   }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

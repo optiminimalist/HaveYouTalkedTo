@@ -77,7 +77,7 @@ class ContactsListController: UITableViewController, DatePickerViewDelegate {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         if self.store.getAllContacts().count == 0 {
-               self.tableView.setEmptyMessage("My Message")
+               self.tableView.setEmptyMessage("No contacts :(")
            } else {
                self.tableView.restore()
            }

@@ -70,6 +70,8 @@ class ContactsStore {
         self.savePersistentContext()
         self.updateContactsByLastContacted()
 
+        print("Done Fetching")
+
     }
 
     /* Sections */
@@ -123,7 +125,7 @@ class ContactsStore {
      Called whenever data changes: it updates contactsByLastContacted
      */
     private func updateContactsByLastContacted() {
-        let allContacts = filterByGroups(contacts: self.getAllContacts().sorted())
+        let allContacts = filterByGroups(contacts: self.allContactsByID.values.sorted())
 
         // instantiate contactsByLastContacted
         self.contactsByLastContacted = [[Contact]]()
