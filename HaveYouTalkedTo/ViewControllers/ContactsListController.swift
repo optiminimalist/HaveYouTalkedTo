@@ -138,22 +138,25 @@ extension ContactsListController {
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let markContactedTodayAction = UIContextualAction(style: .destructive, title: "Contacted Today") { (_, _, completionHandler) in
+        let markContactedTodayAction = UIContextualAction(style: .normal, title: "Contacted Today") { (_, _, completionHandler) in
 
             self.processMarkLastContacted(indexPath: indexPath, lastContacted: Date())
             completionHandler(true)
 
           }
+
+        markContactedTodayAction.backgroundColor = .systemGreen
           return UISwipeActionsConfiguration(actions: [markContactedTodayAction])
-        
-    // TODO implement tableview click
-//        let presentedVC = self.storyboard?.instantiateViewController(withIdentifier: "DatePickerViewController") as! DatePickerViewController
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // TODO implement tableview click
+        let presentedVC = self.storyboard?.instantiateViewController(withIdentifier: "ContactDetailsTableViewController") as! ContactDetailsTableViewController
 //        presentedVC.delegate = self
-//
-//        self.present(presentedVC, animated: true, completion: nil)
 
-
-  }
+        presentedVC.firstNameLabel?.text = "Michael"
+        navigationController?.pushViewController(presentedVC, animated: true)
+    }
 
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
@@ -170,7 +173,7 @@ extension ContactsListController {
 
         }
 
-        markContactedAction.backgroundColor = .orange
+        markContactedAction.backgroundColor = .systemBlue
 
         return UISwipeActionsConfiguration(actions: [markContactedAction])
 

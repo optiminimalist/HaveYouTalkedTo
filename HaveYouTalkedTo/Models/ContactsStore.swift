@@ -49,8 +49,6 @@ class ContactsStore {
         newContactEntry.lastContactDate = lastContacted
         newContactEntry.persistedContact = persistedContact
 
-        print(persistedContact?.contactEntries?.count)
-
         self.savePersistentContext()
         self.updateContactsByLastContacted()
     }
