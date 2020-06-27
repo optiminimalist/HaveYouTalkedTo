@@ -10,17 +10,25 @@ import UIKit
 
 class ContactDetailsTableViewController: UITableViewController {
 
-    @IBOutlet var firstNameLabel: UILabel!
+    var contact: Contact!
+    var store: ContactsStore!
+    var contactEntries: [ContactEntry]!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.firstNameLabel.text = "Michael"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = self.contact.firstName + " " + self.contact.lastName
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
          self.navigationItem.rightBarButtonItem = self.editButtonItem
+
+        let contactEntries = self.contact.persistedContact?.contactEntries?.allObjects as! [ContactEntry]
+
+        self.contactEntries = contactEntries.sorted(by: >)
     }
 
     // MARK: - Table view data source
@@ -32,12 +40,17 @@ class ContactDetailsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return self.contact.persistedContact?.contactEntries?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConactDetailViewCell", for: indexPath)
-        cell.detailTextLabel?.text = "Hello"
+        if let date = formatDate(self.contactEntries[indexPath.row].lastContactDate) {
+            cell.textLabel?.text = "Contacted on: \(date)"
+        } else {
+            cell.textLabel?.text = "never"
+
+        }
         // Configure the cell...
 
         return cell

@@ -153,8 +153,7 @@ extension ContactsListController {
         // TODO implement tableview click
         let presentedVC = self.storyboard?.instantiateViewController(withIdentifier: "ContactDetailsTableViewController") as! ContactDetailsTableViewController
 //        presentedVC.delegate = self
-
-        presentedVC.firstNameLabel?.text = "Michael"
+        presentedVC.contact = self.store.getContact(forIndexPath: indexPath)
         navigationController?.pushViewController(presentedVC, animated: true)
     }
 

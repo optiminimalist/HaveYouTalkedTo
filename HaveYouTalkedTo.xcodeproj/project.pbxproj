@@ -22,6 +22,10 @@
 		4C874EF6249D76800069FCD3 /* ContactsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C874EF5249D76800069FCD3 /* ContactsListCell.swift */; };
 		4CB67250249E792F007B982B /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB6724F249E792F007B982B /* FilterViewController.swift */; };
 		4CBACF0B24A63FA000EC3E4A /* ContactDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBACF0A24A63FA000EC3E4A /* ContactDetailsTableViewController.swift */; };
+		4CBE8BCF24A710EE00743A7F /* PersistedContact+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE8BCB24A710EE00743A7F /* PersistedContact+CoreDataClass.swift */; };
+		4CBE8BD024A710EE00743A7F /* PersistedContact+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE8BCC24A710EE00743A7F /* PersistedContact+CoreDataProperties.swift */; };
+		4CBE8BD124A710EE00743A7F /* ContactEntry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE8BCD24A710EE00743A7F /* ContactEntry+CoreDataClass.swift */; };
+		4CBE8BD224A710EE00743A7F /* ContactEntry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBE8BCE24A710EE00743A7F /* ContactEntry+CoreDataProperties.swift */; };
 		4CF265DE24A048A900BEE361 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF265DD24A048A900BEE361 /* DatePickerViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +68,10 @@
 		4C874EF5249D76800069FCD3 /* ContactsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListCell.swift; sourceTree = "<group>"; };
 		4CB6724F249E792F007B982B /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		4CBACF0A24A63FA000EC3E4A /* ContactDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsTableViewController.swift; sourceTree = "<group>"; };
+		4CBE8BCB24A710EE00743A7F /* PersistedContact+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistedContact+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4CBE8BCC24A710EE00743A7F /* PersistedContact+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistedContact+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		4CBE8BCD24A710EE00743A7F /* ContactEntry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactEntry+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4CBE8BCE24A710EE00743A7F /* ContactEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4CF265DD24A048A900BEE361 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +112,10 @@
 		4C874EB1249D74000069FCD3 = {
 			isa = PBXGroup;
 			children = (
+				4CBE8BCB24A710EE00743A7F /* PersistedContact+CoreDataClass.swift */,
+				4CBE8BCC24A710EE00743A7F /* PersistedContact+CoreDataProperties.swift */,
+				4CBE8BCD24A710EE00743A7F /* ContactEntry+CoreDataClass.swift */,
+				4CBE8BCE24A710EE00743A7F /* ContactEntry+CoreDataProperties.swift */,
 				4C874EBC249D74000069FCD3 /* HaveYouTalkedTo */,
 				4C874ED6249D74040069FCD3 /* HaveYouTalkedToTests */,
 				4C874EE1249D74040069FCD3 /* HaveYouTalkedToUITests */,
@@ -338,7 +350,10 @@
 			files = (
 				4C874EC8249D74000069FCD3 /* HaveYouTalkedTo.xcdatamodeld in Sources */,
 				4CBACF0B24A63FA000EC3E4A /* ContactDetailsTableViewController.swift in Sources */,
+				4CBE8BD124A710EE00743A7F /* ContactEntry+CoreDataClass.swift in Sources */,
+				4CBE8BD224A710EE00743A7F /* ContactEntry+CoreDataProperties.swift in Sources */,
 				4C874EBE249D74000069FCD3 /* AppDelegate.swift in Sources */,
+				4CBE8BD024A710EE00743A7F /* PersistedContact+CoreDataProperties.swift in Sources */,
 				4C85E15F249D9C73007DB35D /* ContactsStore.swift in Sources */,
 				4CF265DE24A048A900BEE361 /* DatePickerViewController.swift in Sources */,
 				4CB67250249E792F007B982B /* FilterViewController.swift in Sources */,
@@ -346,6 +361,7 @@
 				4C874EF4249D75720069FCD3 /* ContactsListController.swift in Sources */,
 				4C874EF6249D76800069FCD3 /* ContactsListCell.swift in Sources */,
 				4C874EC0249D74000069FCD3 /* SceneDelegate.swift in Sources */,
+				4CBE8BCF24A710EE00743A7F /* PersistedContact+CoreDataClass.swift in Sources */,
 				4C85E161249D9CCF007DB35D /* Contact.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

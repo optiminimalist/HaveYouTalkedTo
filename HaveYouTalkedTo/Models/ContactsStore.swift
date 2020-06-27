@@ -113,6 +113,10 @@ class ContactsStore {
         allContactsByID.values.map({$0})
     }
 
+    func getContact(forIndexPath: IndexPath) -> Contact {
+        return self.getContacts(forSection: forIndexPath.section)[forIndexPath.row]
+    }
+
     /* Handle Contact Entries */
 
     /**
