@@ -86,6 +86,17 @@ class ContactHighlightsViewController: UITableViewController {
          markContactedTodayAction.backgroundColor = .systemGreen
          return UISwipeActionsConfiguration(actions: [markContactedTodayAction])
    }
+
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+          let markIgnoreAction = UIContextualAction(style: .normal, title: "Skip") { (_, _, completionHandler) in
+
+              completionHandler(true)
+
+            }
+
+            markIgnoreAction.backgroundColor = .systemRed
+            return UISwipeActionsConfiguration(actions: [markIgnoreAction])
+      }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
