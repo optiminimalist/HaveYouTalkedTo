@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C2717D124A799AB00782287 /* ContactHighlightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2717D024A799AB00782287 /* ContactHighlightsViewController.swift */; };
+		4C2717D324A79ABE00782287 /* ContactHighlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2717D224A79ABE00782287 /* ContactHighlightCell.swift */; };
+		4C2717D624A79D0400782287 /* CNContactManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2717D524A79D0400782287 /* CNContactManager.swift */; };
+		4C2717D824A7C20600782287 /* ContactDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2717D724A7C20600782287 /* ContactDetailCell.swift */; };
 		4C85E15F249D9C73007DB35D /* ContactsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85E15E249D9C73007DB35D /* ContactsStore.swift */; };
 		4C85E161249D9CCF007DB35D /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85E160249D9CCF007DB35D /* Contact.swift */; };
 		4C85E167249DAAC8007DB35D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C85E166249DAAC8007DB35D /* Helpers.swift */; };
@@ -47,6 +51,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C2717D024A799AB00782287 /* ContactHighlightsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactHighlightsViewController.swift; sourceTree = "<group>"; };
+		4C2717D224A79ABE00782287 /* ContactHighlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactHighlightCell.swift; sourceTree = "<group>"; };
+		4C2717D524A79D0400782287 /* CNContactManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNContactManager.swift; sourceTree = "<group>"; };
+		4C2717D724A7C20600782287 /* ContactDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailCell.swift; sourceTree = "<group>"; };
 		4C85E15E249D9C73007DB35D /* ContactsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsStore.swift; sourceTree = "<group>"; };
 		4C85E160249D9CCF007DB35D /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		4C85E166249DAAC8007DB35D /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
@@ -100,6 +108,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C2717D424A79CE300782287 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				4C2717D524A79D0400782287 /* CNContactManager.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		4C85E15D249D9C62007DB35D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +152,7 @@
 		4C874EBC249D74000069FCD3 /* HaveYouTalkedTo */ = {
 			isa = PBXGroup;
 			children = (
+				4C2717D424A79CE300782287 /* Shared */,
 				4C85E15D249D9C62007DB35D /* Models */,
 				4C874EF2249D75600069FCD3 /* ViewControllers */,
 				4C874EF0249D74220069FCD3 /* Generated */,
@@ -192,6 +209,9 @@
 				4CB6724F249E792F007B982B /* FilterViewController.swift */,
 				4CF265DD24A048A900BEE361 /* DatePickerViewController.swift */,
 				4CBACF0A24A63FA000EC3E4A /* ContactDetailsTableViewController.swift */,
+				4C2717D024A799AB00782287 /* ContactHighlightsViewController.swift */,
+				4C2717D224A79ABE00782287 /* ContactHighlightCell.swift */,
+				4C2717D724A7C20600782287 /* ContactDetailCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -349,18 +369,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C874EC8249D74000069FCD3 /* HaveYouTalkedTo.xcdatamodeld in Sources */,
+				4C2717D124A799AB00782287 /* ContactHighlightsViewController.swift in Sources */,
 				4CBACF0B24A63FA000EC3E4A /* ContactDetailsTableViewController.swift in Sources */,
 				4CBE8BD124A710EE00743A7F /* ContactEntry+CoreDataClass.swift in Sources */,
 				4CBE8BD224A710EE00743A7F /* ContactEntry+CoreDataProperties.swift in Sources */,
 				4C874EBE249D74000069FCD3 /* AppDelegate.swift in Sources */,
 				4CBE8BD024A710EE00743A7F /* PersistedContact+CoreDataProperties.swift in Sources */,
 				4C85E15F249D9C73007DB35D /* ContactsStore.swift in Sources */,
+				4C2717D824A7C20600782287 /* ContactDetailCell.swift in Sources */,
 				4CF265DE24A048A900BEE361 /* DatePickerViewController.swift in Sources */,
 				4CB67250249E792F007B982B /* FilterViewController.swift in Sources */,
 				4C85E167249DAAC8007DB35D /* Helpers.swift in Sources */,
 				4C874EF4249D75720069FCD3 /* ContactsListController.swift in Sources */,
+				4C2717D324A79ABE00782287 /* ContactHighlightCell.swift in Sources */,
 				4C874EF6249D76800069FCD3 /* ContactsListCell.swift in Sources */,
 				4C874EC0249D74000069FCD3 /* SceneDelegate.swift in Sources */,
+				4C2717D624A79D0400782287 /* CNContactManager.swift in Sources */,
 				4CBE8BCF24A710EE00743A7F /* PersistedContact+CoreDataClass.swift in Sources */,
 				4C85E161249D9CCF007DB35D /* Contact.swift in Sources */,
 			);

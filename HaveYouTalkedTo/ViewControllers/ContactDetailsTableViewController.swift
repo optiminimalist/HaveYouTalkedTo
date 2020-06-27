@@ -27,28 +27,31 @@ class ContactDetailsTableViewController: UITableViewController {
          self.navigationItem.rightBarButtonItem = self.editButtonItem
 
         let contactEntries = self.contact.persistedContact?.contactEntries?.allObjects as! [ContactEntry]
-
         self.contactEntries = contactEntries.sorted(by: >)
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
+           if self.contactEntries.count == 0 {
+                self.tableView.setEmptyMessage("No contact attempts yet :(")
+            } else {
+                self.tableView.restore()
+            }
+          return 1
+      }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.contact.persistedContact?.contactEntries?.count ?? 0
+        return self.contactEntries.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ConactDetailViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "contactDetailViewCell", for: indexPath) as! ContactDetailCell
         if let date = formatDate(self.contactEntries[indexPath.row].lastContactDate) {
-            cell.textLabel?.text = "Contacted on: \(date)"
+            cell.contactedOnLabel.text = "\(date)"
         } else {
-            cell.textLabel?.text = "never"
+            cell.contactedOnLabel.text = "never"
 
         }
         // Configure the cell...
@@ -64,17 +67,23 @@ class ContactDetailsTableViewController: UITableViewController {
     }
     */
 
-    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            self.contactEntries.remove(at: indexPath.row)
+            self.contact.persistedContact?.contactEntries = NSSet(array: self.contactEntries)
+
+            // TODO don't
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
             tableView.deleteRows(at: [indexPath], with: .fade)
+
+            NotificationCenter.default.post(name: .didLastContactedChange, object: nil)
+
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
 
     /*
     // Override to support rearranging the table view.

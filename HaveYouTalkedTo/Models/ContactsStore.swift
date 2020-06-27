@@ -42,7 +42,6 @@ class ContactsStore {
      Marks last contacted given id
      */
     func markLastContacted(id: String, lastContacted: Date?) {
-        self.allContactsByID[id]?.lastContactDate = lastContacted
         let persistedContact = self.allContactsByID[id]?.persistedContact
 
         let newContactEntry = ContactEntry(context: context)
@@ -70,6 +69,9 @@ class ContactsStore {
 
         self.savePersistentContext()
         self.updateContactsByLastContacted()
+
+        print("Done Fetching")
+
     }
 
     /* Sections */
@@ -110,7 +112,7 @@ class ContactsStore {
     }
 
     func getAllContacts() -> [Contact] {
-        allContactsByID.values.map({$0})
+        return self.contactsByLastContacted.flatMap({$0}).reversed()
     }
 
     func getContact(forIndexPath: IndexPath) -> Contact {
@@ -123,7 +125,7 @@ class ContactsStore {
      Called whenever data changes: it updates contactsByLastContacted
      */
     private func updateContactsByLastContacted() {
-        let allContacts = filterByGroups(contacts: self.getAllContacts().sorted())
+        let allContacts = filterByGroups(contacts: self.allContactsByID.values.sorted())
 
         // instantiate contactsByLastContacted
         self.contactsByLastContacted = [[Contact]]()
@@ -210,7 +212,7 @@ class ContactsStore {
   }
 
    //TODO should this be here?
-   private func savePersistentContext() {
+private func savePersistentContext() {
        do {
           try context.save()
 
@@ -281,5 +283,12 @@ extension ContactsStore {
         }
 
         return contacts
+    }
+}
+
+// Highlights
+extension ContactsStore {
+    func getHighlights() -> [Contact] {
+        return Array(self.getAllContacts().prefix(5))
     }
 }
