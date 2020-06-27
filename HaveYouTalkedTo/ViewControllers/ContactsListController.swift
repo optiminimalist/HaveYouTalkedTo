@@ -137,16 +137,25 @@ extension ContactsListController {
         self.contactDidChange(id: contact.id, fromDate: previousContact, toDate: currentContact)
     }
 
-override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-    let markContactedTodayAction = UIContextualAction(style: .destructive, title: "Contacted Today") { (_, _, completionHandler) in
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let markContactedTodayAction = UIContextualAction(style: .normal, title: "Contacted Today") { (_, _, completionHandler) in
 
-        self.processMarkLastContacted(indexPath: indexPath, lastContacted: Date())
-        completionHandler(true)
+            self.processMarkLastContacted(indexPath: indexPath, lastContacted: Date())
+            completionHandler(true)
 
-      }
-      return UISwipeActionsConfiguration(actions: [markContactedTodayAction])
+          }
 
-  }
+        markContactedTodayAction.backgroundColor = .systemGreen
+          return UISwipeActionsConfiguration(actions: [markContactedTodayAction])
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // TODO implement tableview click
+        let presentedVC = self.storyboard?.instantiateViewController(withIdentifier: "ContactDetailsTableViewController") as! ContactDetailsTableViewController
+//        presentedVC.delegate = self
+        presentedVC.contact = self.store.getContact(forIndexPath: indexPath)
+        navigationController?.pushViewController(presentedVC, animated: true)
+    }
 
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
@@ -163,7 +172,7 @@ override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurat
 
         }
 
-        markContactedAction.backgroundColor = .orange
+        markContactedAction.backgroundColor = .systemBlue
 
         return UISwipeActionsConfiguration(actions: [markContactedAction])
 
