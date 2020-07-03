@@ -304,10 +304,7 @@ extension ContactsStore {
 // Highlights
 extension ContactsStore {
     
-    func generateHighlights() -> [Contact] {
-        // TODO be smarter
-        return Array(self.getAllContacts().prefix(5))
-    }
+    
     
     func fetchOrCreateHighlights(byDate rawDate: Date) -> [Contact] {
         if self.listOfHighlights.count == 0 {
@@ -324,9 +321,9 @@ extension ContactsStore {
                 
                 self.savePersistentContext()
                 
-                return highlights
+                self.listOfHighlights = highlights
             } else {
-                return fetchedHighlights.map {
+                self.listOfHighlights = fetchedHighlights.map {
                     return self.getContact(byID: $0.id!)!
                 }
             }
@@ -334,6 +331,10 @@ extension ContactsStore {
         
         return self.listOfHighlights
         
+    }
+    
+    func markHighlightDone(indexPath: IndexPath) {
+        self.listOfHighlights.remove(at: indexPath.row)
     }
     
     private func fetchHighlights(byDate date: Date) -> [ContactHighlight] {
@@ -350,5 +351,11 @@ extension ContactsStore {
         
         return []
     }
+    
+    private func generateHighlights() -> [Contact] {
+        // TODO be smarter
+        return Array(self.getAllContacts().prefix(5))
+    }
+    
     
 }

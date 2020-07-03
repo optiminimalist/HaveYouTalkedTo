@@ -71,6 +71,9 @@ class ContactHighlightsViewController: UITableViewController {
         }
 
     func processMarkLastContacted(indexPath: IndexPath, lastContacted: Date?) {
+        
+        self.store.markHighlightDone(indexPath: indexPath)
+        self.tableView.reloadData()
 //           let contact = self.store.contactsByLastContacted[indexPath.section][indexPath.row]
 //           let previousContact = contact.lastContactDate
 //           self.store.markLastContacted(forIndexPath: indexPath, lastContacted: (lastContacted ?? Date()).stripTime())
