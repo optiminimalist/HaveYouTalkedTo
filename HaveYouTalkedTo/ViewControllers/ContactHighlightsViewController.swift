@@ -50,21 +50,25 @@ class ContactHighlightsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return self.store.fetchOrCreateHighlights(byDate: Date().stripTime()).count
+        return self.store.fetchOrCreateHighlights(byDate: Date()).count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "contactHighlightsCell", for: indexPath) as! ContactHightlightCell
 
-        let contact = self.store.fetchOrCreateHighlights(byDate: Date().stripTime())[indexPath.row]
+        let contact = self.store.fetchOrCreateHighlights(byDate: Date())[indexPath.row]
         cell.firstNameLabel.text = contact.firstName
         cell.lastNameLabel.text = contact.lastName
-
-        // Configure the cell...
-
         return cell
     }
+
+        override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            // TODO implement tableview click
+            let presentedVC = self.storyboard?.instantiateViewController(withIdentifier: "ContactDetailsTableViewController") as! ContactDetailsTableViewController
+    //        presentedVC.delegate = self
+            presentedVC.contact = self.store.fetchOrCreateHighlights(byDate: Date())[indexPath.row]
+            navigationController?.pushViewController(presentedVC, animated: true)
+        }
 
     func processMarkLastContacted(indexPath: IndexPath, lastContacted: Date?) {
 //           let contact = self.store.contactsByLastContacted[indexPath.section][indexPath.row]

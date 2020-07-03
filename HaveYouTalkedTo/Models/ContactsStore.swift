@@ -300,16 +300,14 @@ extension ContactsStore {
 
 // Highlights
 extension ContactsStore {
-    func getHighlights() -> [Contact] {
-        return Array(self.getAllContacts().prefix(5))
-    }
 
     func generateHighlights() -> [Contact] {
         // TODO be smarter
         return Array(self.getAllContacts().prefix(5))
     }
 
-    func fetchOrCreateHighlights(byDate date: Date) -> [Contact] {
+    func fetchOrCreateHighlights(byDate rawDate: Date) -> [Contact] {
+        let date = rawDate.stripTime()
        let fetchedHighlights = self.fetchHighlights(byDate: date)
        if fetchedHighlights.count == 0 {
 
@@ -345,4 +343,5 @@ extension ContactsStore {
 
     return []
    }
+
 }
