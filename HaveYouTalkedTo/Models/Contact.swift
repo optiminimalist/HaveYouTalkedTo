@@ -22,7 +22,7 @@ struct Contact: Comparable {
             return true
         }
     }
-
+    
     var id: String
     var firstName: String
     var lastName: String
@@ -38,9 +38,9 @@ struct Contact: Comparable {
     var persistedContact: PersistedContact?
     var cnContact: CNContact?
     var cnGroups: [CNGroup]
-
+    
     func setLastContactDate(_ d: Date) {
         self.persistedContact?.lastContactDate = d
     }
-
+    
 }

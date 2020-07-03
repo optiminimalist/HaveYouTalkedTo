@@ -6,6 +6,7 @@
         <relationship name="persistedContact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PersistedContact" inverseName="contactEntries" inverseEntity="PersistedContact"/>
     </entity>
     <entity name="ContactHighlight" representedClassName="ContactHighlight" syncable="YES">
+        <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="highlightDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="String"/>
     </entity>
@@ -16,7 +17,7 @@
     </entity>
     <elements>
         <element name="ContactEntry" positionX="-426.3515625" positionY="-17.234375" width="145.265625" height="88"/>
+        <element name="ContactHighlight" positionX="-621" positionY="18" width="128" height="88"/>
         <element name="PersistedContact" positionX="-828.546875" positionY="-0.25" width="128" height="88"/>
-        <element name="ContactHighlight" positionX="-621" positionY="18" width="128" height="73"/>
     </elements>
 </model>

@@ -6,9 +6,9 @@
 //  Copyright © 2020 optiminimalist. All rights reserved.
 //
 
- import CoreData
+import CoreData
 
- class ContactHighlightStore {
+class ContactHighlightStore {
     var context: NSManagedObjectContext!
-
- }
+    
+}
